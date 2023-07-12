@@ -31,6 +31,9 @@ int main (int argc, char *argv)
 	struct stat fileStat;
 	bool command_executed = false;
 	int exit_status;
+	const char *directory;
+	char current_dir[MAX_PATH_LENGTH];
+	char new_dir[MAX_PATH_LENGTH];
 
 	while (1)
 	{
@@ -83,6 +86,45 @@ int main (int argc, char *argv)
 				else
 					if (unsetenv(args[1]) != 0)
 						perror("unsetenv");
+				continue;
+			}
+			else if (strcmp(args[0], "cd") == 0)
+			{
+				if (token_count > 2)
+					fprintf(stderr, "Invalid usage of cd command\n");
+				else
+				{
+					directory = token_count == 1 ? getenv("HOME") : args[1];
+					if (strcmp(directory, "-") == 0)
+					{
+						directory = getenv("OLDPWD");
+						if (directory == NULL)
+						{
+							fprintf(stderr, "OLDPWD not set\n");
+							continue;
+						}
+						printf("%s\n", directory);
+					}
+					if (getcwd(current_dir, sizeof(current_dir)) == NULL)
+					{
+						perror("getcwd");
+						continue;
+					}
+					if (chdir(directory) != 0)
+					{
+						perror("chdir");
+						continue;
+					}
+					if (setenv("OLDPWD", current_dir, 1) != 0)
+						perror("setenv");
+					if (getcwd(new_dir, sizeof(new_dir)) == NULL)
+					{
+						perror("getcwd");
+						continue;
+					}
+					if (setenv("PWD", new_dir, 1) != 0)
+						perror("setenv");
+				}
 				continue;
 			}
 		else
