@@ -67,7 +67,7 @@ int main (int argc, char *argv)
 		{
 			args[token_count] = token;
 			token_count++;
-			token = strtok(NULL, " \t\n");
+			token = strtok(NULL, " \t\n=");
 		}
 		args[token_count] = NULL;
 		/*
@@ -158,15 +158,15 @@ int main (int argc, char *argv)
 				}
 				else
 				{
-					for (j = 1; j < token_count; j++)
-					{
-						alias_arg = args[i];
-						equal_sign = strchr(alias_arg, '=');
+					// for (j = 1; j < token_count; j++)
+					// {
+					// 	alias_arg = args[j];
+						equal_sign = strchr(line, '=');
 						if (equal_sign != NULL)
 						{
-							*equal_sign = '\0';
-							alias_name = alias_arg;
-							alias_value = equal_sign + 1;
+							// *equal_sign = '\0';
+							alias_name = args[1]
+							alias_value = args[2];
 							snprintf(alias, MAX_PATH_LENGTH, "alias %s='%s'", alias_name, alias_value);
 							setenv(alias_name, alias_value, 1);
 							h = 0;
@@ -183,7 +183,7 @@ int main (int argc, char *argv)
 						}
 						else
 							print_alias(alias_arg);
-					}
+					// }
 				}
 				continue;
 			}
