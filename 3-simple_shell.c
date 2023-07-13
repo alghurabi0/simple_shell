@@ -67,7 +67,7 @@ int main (int argc, char *argv)
 		{
 			args[token_count] = token;
 			token_count++;
-			token = strtok(NULL, " \t\n=");
+			token = strtok(NULL, " \t\n");
 		}
 		args[token_count] = NULL;
 		/*
@@ -159,6 +159,7 @@ int main (int argc, char *argv)
 				}
 				else
 				{
+					strtok(args[1], "=");
 					// for (j = 1; j < token_count; j++)
 					// {
 					// 	alias_arg = args[j];
