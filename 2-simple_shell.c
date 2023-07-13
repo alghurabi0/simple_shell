@@ -168,66 +168,66 @@ int main (int argc, char *argv)
 				execute_command(remaining_args);
 				continue;
 			}
-		else
-		{
-			path = getenv("PATH");
-			path_copy = strdup(path);
-			token_path = strtok(path_copy, ":");
-
-			while (token_path != NULL && !command_executed)
+			else
 			{
-				snprintf(full_path, MAX_PATH_LENGTH, "%s/%s", token_path, args[0]);
-				if (stat(full_path, &fileStat) == 0)
+				path = getenv("PATH");
+				path_copy = strdup(path);
+				token_path = strtok(path_copy, ":");
+
+				while (token_path != NULL && !command_executed)
 				{
-					if (access(full_path, X_OK) == 0)
+					snprintf(full_path, MAX_PATH_LENGTH, "%s/%s", token_path, args[0]);
+					if (stat(full_path, &fileStat) == 0)
 					{
-						pid = fork();
-						if (pid == -1)
+						if (access(full_path, X_OK) == 0)
 						{
-							perror("fork");
-							exit(EXIT_FAILURE);
-						}
-						else if (pid == 0)
-						{
-							execve(full_path, args, environ);
-							exit(EXIT_SUCCESS);
+							pid = fork();
+							if (pid == -1)
+							{
+								perror("fork");
+								exit(EXIT_FAILURE);
+							}
+							else if (pid == 0)
+							{
+								execve(full_path, args, environ);
+								exit(EXIT_SUCCESS);
+							}
+							else
+							{
+								wait(&status);
+								command_executed = true;
+							}
 						}
 						else
-						{
-							wait(&status);
-							command_executed = true;
-						}
+							perror("access");
 					}
-					else
-						perror("access");
-				}
-				else if (stat(args[0], &fileStat) == 0)
-				{
-					if (access(args[0], X_OK) == 0)
+					else if (stat(args[0], &fileStat) == 0)
 					{
-						pid = fork();
-						if (pid == -1)
+						if (access(args[0], X_OK) == 0)
 						{
-							perror("fork");
-							exit(EXIT_FAILURE);
-						}
-						else if (pid == 0)
-						{
-							execve(args[0], args, environ);
-							exit(EXIT_SUCCESS);
+							pid = fork();
+							if (pid == -1)
+							{
+								perror("fork");
+								exit(EXIT_FAILURE);
+							}
+							else if (pid == 0)
+							{
+								execve(args[0], args, environ);
+								exit(EXIT_SUCCESS);
+							}
+							else
+							{
+								wait(&status);
+								command_executed = true;
+							}
 						}
 						else
-						{
-							wait(&status);
-							command_executed = true;
-						}
+							perror("access");
 					}
-					else
-						perror("access");
+					token_path = strtok(NULL, ":");
 				}
-				token_path = strtok(NULL, ":");
 			}
-		}
 			if (command_executed == false)
 				fprintf(stderr, "%s: command not found\n", args[0]);
 		}
