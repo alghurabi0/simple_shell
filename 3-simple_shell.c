@@ -165,10 +165,15 @@ int main (int argc, char *argv)
 						if (equal_sign != NULL)
 						{
 							// *equal_sign = '\0';
+							printf("equal sign detected");
 							alias_name = args[1];
+							printf("alias name set");
 							alias_value = args[2];
+							printf("alias value set");
 							snprintf(alias, MAX_PATH_LENGTH, "alias %s='%s'", alias_name, alias_value);
+							printf("alias path is written");
 							setenv(alias_name, alias_value, 1);
+							printf("setenv is done");
 							h = 0;
 							while (environ[h] != NULL)
 							{
@@ -179,8 +184,15 @@ int main (int argc, char *argv)
 								// }
 								h++;
 							}
+							if (environ == NULL)
+							{
+								printf("environ is null");
+							}
+							printf("environ while loop is completed with %d", h);
 							environ[h] = alias;
+							printf("setting environ[h] to alias");
 							environ[h + 1] = NULL;
+							printf("setting last environ to null");
 						}
 						else
 							print_alias(alias_arg);
