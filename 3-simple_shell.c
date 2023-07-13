@@ -174,7 +174,7 @@ int main (int argc, char *argv)
 							snprintf(alias, MAX_PATH_LENGTH, "alias %s='%s'", alias_name, alias_value);
 							printf("alias path is written\n");
 							setenv(alias_name, alias_value, 1);
-							printf("setenv is done");
+							printf("setenv is done\n");
 							h = 0;
 							while (environ[h] != NULL)
 							{
@@ -189,11 +189,11 @@ int main (int argc, char *argv)
 							{
 								printf("environ is null\n");
 							}
-							printf("environ while loop is completed with %d", h);
-							// environ[h] = alias;
-							// printf("setting environ[h] to alias");
-							// environ[h + 1] = NULL;
-							// printf("setting last environ to null");
+							printf("environ while loop is completed with %d\n", h);
+							environ[h] = alias;
+							printf("setting environ[h] to alias\n");
+							environ[h + 1] = NULL;
+							printf("setting last environ to null\n");
 						}
 						else
 							// print_alias(alias_arg);
