@@ -149,10 +149,12 @@ int main (int argc, char *argv)
 					i = 0;
 					while (environ[i] != NULL)
 					{
-						if (strncmp(environ[0], "alias", 5) == 0)
+						if (strncmp(environ[i], "alias", 5) == 0)
 							printf("%s\n", environ[i]);
 						i++;
 					}
+					if (environ == NULL)
+						printf("the env is null");
 				}
 				else
 				{
