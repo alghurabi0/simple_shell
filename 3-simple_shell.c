@@ -165,7 +165,7 @@ int main (int argc, char *argv)
 						if (equal_sign != NULL)
 						{
 							// *equal_sign = '\0';
-							alias_name = args[1]
+							alias_name = args[1];
 							alias_value = args[2];
 							snprintf(alias, MAX_PATH_LENGTH, "alias %s='%s'", alias_name, alias_value);
 							setenv(alias_name, alias_value, 1);
