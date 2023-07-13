@@ -144,7 +144,7 @@ int main (int argc, char *argv)
 			}
 			else if (strcmp(args[0], "alias") == 0)
 			{
-				printf("alias command detected");
+				printf("alias command detected\n");
 				if (token_count == 1)
 				{
 					i = 0;
@@ -155,24 +155,24 @@ int main (int argc, char *argv)
 						i++;
 					}
 					if (environ == NULL)
-						printf("the env is null");
+						printf("the env is null\n");
 				}
 				else
 				{
 					// for (j = 1; j < token_count; j++)
 					// {
 					// 	alias_arg = args[j];
-						equal_sign = strchr(line, '=');
-						if (equal_sign != NULL)
+						// equal_sign = strchr(line, '=');
+						if (token_count == 3)
 						{
 							// *equal_sign = '\0';
-							printf("equal sign detected");
+							printf("equal sign detected\n");
 							alias_name = args[1];
-							printf("alias name set");
+							printf("alias name set\n");
 							alias_value = args[2];
-							printf("alias value set");
+							printf("alias value set\n");
 							snprintf(alias, MAX_PATH_LENGTH, "alias %s='%s'", alias_name, alias_value);
-							printf("alias path is written");
+							printf("alias path is written\n");
 							// setenv(alias_name, alias_value, 1);
 							// printf("setenv is done");
 							h = 0;
@@ -187,7 +187,7 @@ int main (int argc, char *argv)
 							}
 							if (environ == NULL)
 							{
-								printf("environ is null");
+								printf("environ is null\n");
 							}
 							// printf("environ while loop is completed with %d", h);
 							// environ[h] = alias;
@@ -197,7 +197,7 @@ int main (int argc, char *argv)
 						}
 						else
 							// print_alias(alias_arg);
-							printf("should print alias value");
+							printf("should print alias value\n");
 					// }
 				}
 				continue;
