@@ -44,6 +44,7 @@ int main (int argc, char *argv)
 	int i;
 	int j;
 	int h;
+	int k;
 	char alias_arg[MAX_PATH_LENGTH];
 	char *equal_sign;
 	char *alias_name;
@@ -164,16 +165,11 @@ int main (int argc, char *argv)
 				}
 				else
 				{
-					strcpy(alias_arg, args[1]);
-					printf("second arg is copied, %s\n", alias_arg);
-					// equal_sign = getline(&alias_line, &alias_size, alias_arg);
 					if (strchr(args[1], '=') != NULL)
 					{
-					// for (j = 1; j < token_count; j++)
-					// {
-					// 	alias_arg = args[j];
-						// equal_sign = strchr(line, '=');
 						printf("equal sign detected\n");
+						strcpy(alias_arg, args[1]);
+						printf("second arg is copied, %s\n", alias_arg);
 						alias_token = strtok(alias_arg, "=");
 						alias_token_count = 0;
 						while (alias_token != NULL)
@@ -183,10 +179,8 @@ int main (int argc, char *argv)
 							alias_token = strtok(NULL, "=");
 						}
 						alias_args[alias_token_count] = NULL;
-							// *equal_sign = '\0';
 						printf("first alias arg, %s\n", alias_args[0]);
 						printf("second alias arg, %s\n", alias_args[1]);
-
 						alias_name = alias_args[0];
 						printf("alias name set, %s\n", alias_name);
 						alias_value = alias_args[1];
@@ -215,10 +209,26 @@ int main (int argc, char *argv)
 						environ[h + 1] = NULL;
 						printf("setting last environ to null\n");
 					}
-						else
-							// print_alias(alias_arg);
-							printf("should print alias value\n");
-					// }
+					else
+					{
+						j = 0;
+						k = 1;
+						while (environ[j] != NULL)
+						{
+							if (strncmp(environ[j], "alias", 5) == 0)
+							{
+								while (args[k] != NULL)
+								{
+									if (strstr(environ[j], args[k]) != NULL)
+										printf("%s\n", environ[j]);
+									k++;
+								}
+							}
+							j++;
+						}
+						if (environ == NULL)
+							printf("the env is null\n");
+					}
 				}
 				continue;
 			}
