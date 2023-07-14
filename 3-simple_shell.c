@@ -165,7 +165,7 @@ int main (int argc, char *argv)
 				else
 				{
 					strcpy(alias_arg, args[1]);
-					// printf("second arg is copied, %s\n", alias_arg);
+					printf("second arg is copied, %s\n", alias_arg);
 					// equal_sign = getline(&alias_line, &alias_size, alias_arg);
 					if (strchr(args[1], '=') != NULL)
 					{
