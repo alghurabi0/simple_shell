@@ -209,19 +209,16 @@ int main (int argc, char *argv)
 					else
 					{
 						j = 0;
-						k = 1;
 						while (aliases[j] != NULL)
 						{
-							if (strncmp(aliases[j], "alias", 5) == 0)
+							k = 1;
+							while (args[k] != NULL)
 							{
-								while (args[k] != NULL)
-								{
-									if (strstr(aliases[j], args[k]) != NULL)
-										printf("%s\n", aliases[j]);
-									k++;
-								}
+								if (strstr(aliases[j], args[k]) != NULL)
+									printf("%s\n", aliases[j]);
+								k++;
 							}
-							j++;
+						j++;
 						}
 						if (environ == NULL)
 							printf("the env is null\n");
