@@ -297,7 +297,9 @@ int main (int argc, char *argv)
 	}
 	free(path_copy);
 	free(line);
-	free(alias_arg);
-	free(alias_args);
+	alias_arg[MAX_PATH_LENGTH] = NULL;
+	alias_name = NULL;
+	alias_value = NULL;
+	alias_args[MAX_ARGS] = NULL;
 	return (0);
 }
