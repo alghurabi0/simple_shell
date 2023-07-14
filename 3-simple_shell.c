@@ -174,16 +174,19 @@ int main (int argc, char *argv)
 					// 	alias_arg = args[j];
 						// equal_sign = strchr(line, '=');
 						printf("equal sign detected\n");
-						// alias_token = strtok(alias_arg, "=");
-						// alias_token_count = 0;
-						// while (alias_token != NULL)
-						// {
-						// 	alias_args[alias_token_count] = alias_token;
-						// 	alias_token_count++;
-						// 	alias_token = strtok(NULL, "=");
-						// }
-						// alias_args[alias_token_count] = NULL;
+						alias_token = strtok(alias_arg, "=");
+						alias_token_count = 0;
+						while (alias_token != NULL)
+						{
+							alias_args[alias_token_count] = alias_token;
+							alias_token_count++;
+							alias_token = strtok(NULL, "=");
+						}
+						alias_args[alias_token_count] = NULL;
 							// *equal_sign = '\0';
+						printf("first alias arg, %s", alias_args[0]);
+						printf("second alias arg, %s", alias_args[1]);
+
 						// alias_name = alias_args[0];
 						// printf("alias name set, %s\n", alias_args[0]);
 						// alias_value = alias_args[1];
