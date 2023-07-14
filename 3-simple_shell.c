@@ -9,18 +9,12 @@
 #include <errno.h>
 #define MAX_ARGS 64
 #define MAX_PATH_LENGTH 1024
+#define MAX_ALIASES 64
 /**
  * main - main function
  * Return: 0
  */
 extern char **environ;
-void print_alias(char *alias_name)
-{
-        char *alias = getenv(alias_name);
-
-        if (alias != NULL)
-                printf("%s\n", alias);
-}
 int main (int argc, char *argv)
 {
 	char *line = NULL;
@@ -45,6 +39,7 @@ int main (int argc, char *argv)
 	int j;
 	int h;
 	int k;
+	int l;
 	char alias_arg[MAX_PATH_LENGTH];
 	char *alias_name;
 	char *alias_value;
@@ -52,6 +47,8 @@ int main (int argc, char *argv)
 	int alias_token_count;
 	char *alias_token;
 	char alias[MAX_PATH_LENGTH];
+	char *aliases[MAX_ALIASES];  // Array to store aliases
+    int num_aliases = 0;
 
 	while (1)
 	{
@@ -186,38 +183,41 @@ int main (int argc, char *argv)
 						printf("alias path is written, %s\n", alias);
 						setenv(alias_name, alias_value, 1);
 						printf("setenv is done\n");
-						h = 0;
-						while (environ[h] != NULL)
-						{
-								// if (strncmp(environ[h], "alias", 5) == 0 && strncmp(environ[h], alias, strlen(alias)) == 0)
-								// {
-								// 	environ[h] = alias;
-								// 	return;
-								// }
-							h++;
-						}
+						// h = 0;
+						// while (environ[h] != NULL)
+						// {
+						// 		// if (strncmp(environ[h], "alias", 5) == 0 && strncmp(environ[h], alias, strlen(alias)) == 0)
+						// 		// {
+						// 		// 	environ[h] = alias;
+						// 		// 	return;
+						// 		// }
+						// 	h++;
+						// }
 						if (environ == NULL)
 						{
 							printf("environ is null\n");
 						}
-						printf("environ while loop is completed with %d\n", h);
-						environ[h] = alias;
-						printf("setting environ[h] to alias\n");
-						environ[h + 1] = NULL;
-						printf("setting last environ to null\n");
+						// printf("environ while loop is completed with %d\n", h);
+						// environ[h] = alias;
+						// printf("setting environ[h] to alias\n");
+						// environ[h + 1] = NULL;
+						// printf("setting last environ to null\n");
+						aliases[num_aliases] = strdup(alias);
+                    	num_aliases++;
+                    	aliases[num_aliases] = NULL;
 					}
 					else
 					{
 						j = 0;
 						k = 1;
-						while (environ[j] != NULL)
+						while (aliases[j] != NULL)
 						{
-							if (strncmp(environ[j], "alias", 5) == 0)
+							if (strncmp(aliases[j], "alias", 5) == 0)
 							{
 								while (args[k] != NULL)
 								{
-									if (strstr(environ[j], args[k]) != NULL)
-										printf("%s\n", environ[j]);
+									if (strstr(aliases[j], args[k]) != NULL)
+										printf("%s\n", aliases[j]);
 									k++;
 								}
 							}
@@ -295,10 +295,9 @@ int main (int argc, char *argv)
 		token_count = 0;
 		command_executed = false;
 	}
+	for (l = 0; l < num_aliases; l++)
+        free(aliases[l]);
 	free(path_copy);
 	free(line);
-	alias_name = NULL;
-	alias_value = NULL;
-	alias_args[MAX_ARGS] = NULL;
 	return (0);
 }
