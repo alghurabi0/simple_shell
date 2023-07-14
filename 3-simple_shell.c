@@ -164,10 +164,10 @@ int main (int argc, char *argv)
 				}
 				else
 				{
-					strcpy(alias_arg, args[1]);
-					printf("second arg is copies, %s\n", alias_arg);
+					// strcpy(alias_arg, args[1]);
+					// printf("second arg is copied, %s\n", alias_arg);
 					// equal_sign = getline(&alias_line, &alias_size, alias_arg);
-					if (strchr(alias_arg, '=') != NULL)
+					if (strchr(args[1], '=') != NULL)
 					{
 					// for (j = 1; j < token_count; j++)
 					// {
