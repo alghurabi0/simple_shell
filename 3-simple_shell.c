@@ -184,36 +184,36 @@ int main (int argc, char *argv)
 						}
 						alias_args[alias_token_count] = NULL;
 							// *equal_sign = '\0';
-						printf("first alias arg, %s", alias_args[0]);
-						printf("second alias arg, %s", alias_args[1]);
+						printf("first alias arg, %s\n", alias_args[0]);
+						printf("second alias arg, %s\n", alias_args[1]);
 
-						// alias_name = alias_args[0];
-						// printf("alias name set, %s\n", alias_args[0]);
-						// alias_value = alias_args[1];
-						// printf("alias value set, %s\n", alias_args[1]);
-						// snprintf(alias, MAX_PATH_LENGTH, "alias %s='%s'", alias_name, alias_value);
-						// printf("alias path is written\n");
-						// setenv(alias_name, alias_value, 1);
-						// printf("setenv is done\n");
-						// h = 0;
-						// while (environ[h] != NULL)
-						// {
+						alias_name = alias_args[0];
+						printf("alias name set, %s\n", alias_name);
+						alias_value = alias_args[1];
+						printf("alias value set, %s\n", alias_value);
+						snprintf(alias, MAX_PATH_LENGTH, "alias %s='%s'", alias_name, alias_value);
+						printf("alias path is written, %s\n", alias);
+						setenv(alias_name, alias_value, 1);
+						printf("setenv is done\n");
+						h = 0;
+						while (environ[h] != NULL)
+						{
 								// if (strncmp(environ[h], "alias", 5) == 0 && strncmp(environ[h], alias, strlen(alias)) == 0)
 								// {
 								// 	environ[h] = alias;
 								// 	return;
 								// }
-						// 	h++;
-						// }
-						// if (environ == NULL)
-						// {
-						// 	printf("environ is null\n");
-						// }
-						// printf("environ while loop is completed with %d\n", h);
-						// environ[h] = alias;
-						// printf("setting environ[h] to alias\n");
-						// environ[h + 1] = NULL;
-						// printf("setting last environ to null\n");
+							h++;
+						}
+						if (environ == NULL)
+						{
+							printf("environ is null\n");
+						}
+						printf("environ while loop is completed with %d\n", h);
+						environ[h] = alias;
+						printf("setting environ[h] to alias\n");
+						environ[h + 1] = NULL;
+						printf("setting last environ to null\n");
 					}
 						else
 							// print_alias(alias_arg);
