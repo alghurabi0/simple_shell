@@ -165,6 +165,7 @@ int main (int argc, char *argv)
 				else
 				{
 					strcpy(alias_arg, args[1]);
+					printf("second arg is copies, %s\n", alias_arg);
 					// equal_sign = getline(&alias_line, &alias_size, alias_arg);
 					if (strchr(alias_arg, '=') != NULL)
 					{
@@ -173,43 +174,43 @@ int main (int argc, char *argv)
 					// 	alias_arg = args[j];
 						// equal_sign = strchr(line, '=');
 						printf("equal sign detected\n");
-						alias_token = strtok(alias_arg, "=");
-						alias_token_count = 0;
-						while (alias_token != NULL)
-						{
-							alias_args[alias_token_count] = alias_token;
-							alias_token_count++;
-							alias_token = strtok(NULL, "=");
-						}
-						alias_args[alias_token_count] = NULL;
+						// alias_token = strtok(alias_arg, "=");
+						// alias_token_count = 0;
+						// while (alias_token != NULL)
+						// {
+						// 	alias_args[alias_token_count] = alias_token;
+						// 	alias_token_count++;
+						// 	alias_token = strtok(NULL, "=");
+						// }
+						// alias_args[alias_token_count] = NULL;
 							// *equal_sign = '\0';
-						alias_name = alias_args[0];
-						printf("alias name set, %s\n", alias_args[0]);
-						alias_value = alias_args[1];
-						printf("alias value set, %s\n", alias_args[1]);
-						snprintf(alias, MAX_PATH_LENGTH, "alias %s='%s'", alias_name, alias_value);
-						printf("alias path is written\n");
-						setenv(alias_name, alias_value, 1);
-						printf("setenv is done\n");
-						h = 0;
-						while (environ[h] != NULL)
-						{
+						// alias_name = alias_args[0];
+						// printf("alias name set, %s\n", alias_args[0]);
+						// alias_value = alias_args[1];
+						// printf("alias value set, %s\n", alias_args[1]);
+						// snprintf(alias, MAX_PATH_LENGTH, "alias %s='%s'", alias_name, alias_value);
+						// printf("alias path is written\n");
+						// setenv(alias_name, alias_value, 1);
+						// printf("setenv is done\n");
+						// h = 0;
+						// while (environ[h] != NULL)
+						// {
 								// if (strncmp(environ[h], "alias", 5) == 0 && strncmp(environ[h], alias, strlen(alias)) == 0)
 								// {
 								// 	environ[h] = alias;
 								// 	return;
 								// }
-							h++;
-						}
-						if (environ == NULL)
-						{
-							printf("environ is null\n");
-						}
-						printf("environ while loop is completed with %d\n", h);
-						environ[h] = alias;
-						printf("setting environ[h] to alias\n");
-						environ[h + 1] = NULL;
-						printf("setting last environ to null\n");
+						// 	h++;
+						// }
+						// if (environ == NULL)
+						// {
+						// 	printf("environ is null\n");
+						// }
+						// printf("environ while loop is completed with %d\n", h);
+						// environ[h] = alias;
+						// printf("setting environ[h] to alias\n");
+						// environ[h + 1] = NULL;
+						// printf("setting last environ to null\n");
 					}
 						else
 							// print_alias(alias_arg);
