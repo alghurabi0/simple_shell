@@ -46,11 +46,8 @@ int main (int argc, char *argv)
 	int h;
 	int k;
 	char alias_arg[MAX_PATH_LENGTH];
-	char *equal_sign;
 	char *alias_name;
 	char *alias_value;
-	char *alias_line;
-	size_t alias_size;
 	char *alias_args[MAX_ARGS];
 	int alias_token_count;
 	char *alias_token;
@@ -300,5 +297,7 @@ int main (int argc, char *argv)
 	}
 	free(path_copy);
 	free(line);
+	free(alias_arg);
+	free(alias_args);
 	return (0);
 }
