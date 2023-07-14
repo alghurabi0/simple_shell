@@ -148,13 +148,13 @@ int main (int argc, char *argv)
 				if (token_count == 1)
 				{
 					i = 0;
-					while (environ[i] != NULL)
+					while (aliases[i] != NULL)
 					{
-						if (strncmp(environ[i], "alias", 5) == 0)
-							printf("%s\n", environ[i]);
+						if (strncmp(aliases[i], "alias", 5) == 0)
+							printf("%s\n", aliases[i]);
 						i++;
 					}
-					if (environ == NULL)
+					if (aliases == NULL)
 						printf("the env is null\n");
 				}
 				else
@@ -193,7 +193,7 @@ int main (int argc, char *argv)
 						// 		// }
 						// 	h++;
 						// }
-						if (environ == NULL)
+						if (aliases == NULL)
 						{
 							printf("environ is null\n");
 						}
