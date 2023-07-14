@@ -179,11 +179,11 @@ int main (int argc, char *argv)
 							h = 0;
 							while (environ[h] != NULL)
 							{
-								// if (strncmp(environ[h], "alias", 5) == 0 && strncmp(environ[h], alias, strlen(alias)) == 0)
-								// {
-								// 	environ[h] = alias;
-								// 	return;
-								// }
+								if (strncmp(environ[h], "alias", 5) == 0 && strncmp(environ[h], alias, strlen(alias)) == 0)
+								{
+									environ[h] = alias;
+									return;
+								}
 								h++;
 							}
 							if (environ == NULL)
