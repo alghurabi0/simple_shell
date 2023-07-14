@@ -44,7 +44,7 @@ int main (int argc, char *argv)
 	int i;
 	int j;
 	int h;
-	char *alias_arg;
+	char *alias_arg[MAX_PATH_LENGTH];
 	char *equal_sign;
 	char *alias_name;
 	char *alias_value;
@@ -164,7 +164,7 @@ int main (int argc, char *argv)
 				}
 				else
 				{
-					// strcpy(alias_arg, args[1]);
+					strcpy(alias_arg, args[1]);
 					// printf("second arg is copied, %s\n", alias_arg);
 					// equal_sign = getline(&alias_line, &alias_size, alias_arg);
 					if (strchr(args[1], '=') != NULL)
