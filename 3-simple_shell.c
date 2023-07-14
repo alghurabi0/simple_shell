@@ -44,7 +44,7 @@ int main (int argc, char *argv)
 	int i;
 	int j;
 	int h;
-	char *alias_arg[MAX_PATH_LENGTH];
+	char alias_arg[MAX_PATH_LENGTH];
 	char *equal_sign;
 	char *alias_name;
 	char *alias_value;
