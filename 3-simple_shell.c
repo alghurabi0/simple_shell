@@ -286,7 +286,7 @@ int main (int argc, char *argv)
 				}
 				else if (aliases[0] != NULL)
 				{
-					while (j = 0; aliases[j] != NULL; j++)
+					for (j = 0; aliases[j] != NULL; j++)
 					{
 						if (strstr(aliases[j], args[0]) != NULL)
 						{
