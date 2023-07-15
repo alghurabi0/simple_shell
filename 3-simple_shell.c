@@ -40,6 +40,7 @@ int main (int argc, char *argv)
 	int h;
 	int k;
 	int l;
+	int m;
 	char alias_arg[MAX_PATH_LENGTH];
 	char *alias_name;
 	char *alias_value;
@@ -283,13 +284,48 @@ int main (int argc, char *argv)
 					else
 						perror("access");
 				}
+				else if (strstr(aliases, args[0]) != NULL)
+				{
+					j = 0;
+					while (aliases[j] != NULL)
+					{
+						if (strstr(aliases[j], args[0]) != NULL)
+						{
+							alias_token = strtok(aliases[j], "=");
+							alias_token_count = 0;
+							while (alias_token != NULL)
+							{
+								alias_args[alias_token_count] = alias_token;
+								alias_token_count++;
+								alias_token = strtok(NULL, "=");
+							}
+							alias_args[alias_token_count] = NULL;
+							pid = fork();
+							if (pid == -1)
+							{
+								perror("fork");
+								exit(EXIT_FAILURE);
+							}
+							else if (pid == 0)
+							{
+								execve(alias_args[1], alias_args, environ);
+								exit(EXIT_SUCCESS);
+							}
+							else
+							{
+								wait(&status);
+								command_executed = true;
+							}
+						}
+						j++;
+					}
+				}
 				token_path = strtok(NULL, ":");
 			}
 		}
 			if (command_executed == false)
 				fprintf(stderr, "%s: command not found\n", args[0]);
 		}
-		token_count = 0;
 		command_executed = false;
 	}
 	for (l = 0; l < num_aliases; l++)
