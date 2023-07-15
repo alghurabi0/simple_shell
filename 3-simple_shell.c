@@ -284,10 +284,9 @@ int main (int argc, char *argv)
 					else
 						perror("access");
 				}
-				else if (strstr(aliases, args[0]) != NULL)
+				else if (aliases[0] != NULL)
 				{
-					j = 0;
-					while (aliases[j] != NULL)
+					while (j = 0; aliases[j] != NULL; j++)
 					{
 						if (strstr(aliases[j], args[0]) != NULL)
 						{
@@ -317,7 +316,6 @@ int main (int argc, char *argv)
 								command_executed = true;
 							}
 						}
-						j++;
 					}
 				}
 				token_path = strtok(NULL, ":");
