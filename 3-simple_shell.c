@@ -286,6 +286,7 @@ int main (int argc, char *argv)
 				}
 				else if (aliases[0] != NULL)
 				{
+					printf("aliases 0 is not null, %s\n", aliases[0]);
 					for (j = 0; aliases[j] != NULL; j++)
 					{
 						if (strstr(aliases[j], args[0]) != NULL)
@@ -299,6 +300,7 @@ int main (int argc, char *argv)
 								alias_token = strtok(NULL, "=");
 							}
 							alias_args[alias_token_count] = NULL;
+							printf("alias value being executed is, %s\n", alias_args[1]);
 							pid = fork();
 							if (pid == -1)
 							{
