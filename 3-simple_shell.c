@@ -284,42 +284,46 @@ int main (int argc, char *argv)
 					else
 						perror("access");
 				}
-				else if (aliases[0] != NULL)
-				{
-					printf("aliases 0 is not null, %s\n", aliases[0]);
-					for (j = 0; aliases[j] != NULL; j++)
-					{
-						if (strstr(aliases[j], args[0]) != NULL)
-						{
-							alias_token = strtok(aliases[j], "=");
-							alias_token_count = 0;
-							while (alias_token != NULL)
-							{
-								alias_args[alias_token_count] = alias_token;
-								alias_token_count++;
-								alias_token = strtok(NULL, "=");
-							}
-							alias_args[alias_token_count] = NULL;
-							printf("alias value being executed is, %s\n", alias_args[1]);
-							pid = fork();
-							if (pid == -1)
-							{
-								perror("fork");
-								exit(EXIT_FAILURE);
-							}
-							else if (pid == 0)
-							{
-								execve(alias_args[1], alias_args, environ);
-								exit(EXIT_SUCCESS);
-							}
-							else
-							{
-								wait(&status);
-								command_executed = true;
-							}
-						}
-					}
-				}
+				// else if (aliases[0] != NULL)
+				// {
+				// 	printf("aliases 0 is not null, %s\n", aliases[0]);
+				// 	for (j = 0; aliases[j] != NULL; j++)
+				// 	{
+				// 		if (strstr(aliases[j], args[0]) != NULL)
+				// 		{
+				// 			alias_token = strtok(aliases[j], "=");
+				// 			alias_token_count = 0;
+				// 			while (alias_token != NULL)
+				// 			{
+				// 				alias_args[alias_token_count] = alias_token;
+				// 				alias_token_count++;
+				// 				alias_token = strtok(NULL, "=");
+				// 			}
+				// 			alias_args[alias_token_count] = NULL;
+				// 			printf("alias value being executed is, %s\n", alias_args[1]);
+				// 			while (alias_args[1])
+				// 			{
+				// 				alias
+				// 			}
+				// 			pid = fork();
+				// 			if (pid == -1)
+				// 			{
+				// 				perror("fork");
+				// 				exit(EXIT_FAILURE);
+				// 			}
+				// 			else if (pid == 0)
+				// 			{
+				// 				execve(alias_args[1], alias_args, environ);
+				// 				exit(EXIT_SUCCESS);
+				// 			}
+				// 			else
+				// 			{
+				// 				wait(&status);
+				// 				command_executed = true;
+				// 			}
+				// 		}
+				// 	}
+				// }
 				token_path = strtok(NULL, ":");
 			}
 		}
