@@ -37,13 +37,22 @@ int main (int argc, char *argv)
 	char new_dir[MAX_PATH_LENGTH];
 	int i;
 	char *dollar_path;
+	bool comments_mode = false;
+
+	if (argc == 2 && strcmp(argv[1], "sh") == 0)
+		comments_mode = true;
 
 	while (1)
 	{
-		printf("$ ");
+		if (comments_mode)
+			printf("# ");
+		else
+			printf("$ ");
 		fflush(stdout);
 
 		chars_read = getline(&line, &size, stdin);
+		if (comments_mode || line[0] == '#')
+			continue;
 		if (line[0] == '\n' || chars_read == '\0' || chars_read == EOF)
 			break;
 		/*
