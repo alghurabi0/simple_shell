@@ -140,7 +140,7 @@ int main (int argc, char *argv)
 				printf("%d\n", getpid());
 				continue;
 			}
-			else if (strncmp(args[0], "echo", 4) == 0 && strncmp(args[1], "PATH", 4) == 0)
+			else if (strncmp(args[0], "echo", 4) == 0 && strncmp(args[1], "$PATH", 5) == 0)
 			{
 				dollar_path = getenv("PATH");
 				if (path != NULL)
