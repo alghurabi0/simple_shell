@@ -14,42 +14,6 @@
  * Return: 0
  */
 extern char **environ;
-void replace_variable(char *usd_variable, int *status)
-{
-	char *path;
-
-	if (strcmp(usd_variable, "?") == 0)
-		printf("%d\n", *status);
-	else if (strcmp(usd_variable, "$$") == 0)
-		printf("%d\n", getpid());
-	else
-	{
-		if (strcmp(usd_variable, "PATH") == 0)
-		{
-			path = getenv("PATH");
-			if (path != NULL)
-				printf("%s\n", path);
-		}
-	}
-}
-void escape_dollar_signs(char *line)
-{
-	char *dollar_sign;
-
-	dollar_sign = strchr(line, '$');
-	while (dollar_sign != NULL)
-	{
-	if (dollar_sign[1] != '?' && dollar_sign[1] != '$')
-	{
-		memmove(dollar_sign + 1, dollar_sign, strlen(dollar_sign) + 1);
-		*dollar_sign = '\\';
-		dollar_sign += 2;
-	}
-	else
-		dollar_sign = strchr(dollar_sign + 2, '$');
-	}
-}
-
 
 int main (int argc, char *argv)
 {
@@ -72,8 +36,7 @@ int main (int argc, char *argv)
 	char current_dir[MAX_PATH_LENGTH];
 	char new_dir[MAX_PATH_LENGTH];
 	int i;
-	char *usd_arg;
-	char *usd_variable;
+	char *dollar_path;
 
 	while (1)
 	{
@@ -83,7 +46,6 @@ int main (int argc, char *argv)
 		chars_read = getline(&line, &size, stdin);
 		if (line[0] == '\n' || chars_read == '\0' || chars_read == EOF)
 			break;
-		escape_dollar_signs(line);
 		/*
 		 * tokenize
 		 */
@@ -101,15 +63,6 @@ int main (int argc, char *argv)
 		 */
 		if (token_count > 0)
 		{
-			for (i = 0; i < token_count; i++)
-			{
-				usd_arg = args[i];
-				if (usd_arg[0] == '$')
-				{
-					usd_variable = usd_arg + 1;
-					replace_variable(usd_variable, &status);
-				}
-			}
 			if (strncmp(args[0], "exit", 4) ==0)
 			{
 				if (token_count > 1)
@@ -175,6 +128,23 @@ int main (int argc, char *argv)
 					if (setenv("PWD", new_dir, 1) != 0)
 						perror("setenv");
 				}
+				continue;
+			}
+			else if (strncmp(args[0], 'echo', 4) == 0 %% strncmp(args[1], '$?', 2) == 0)
+			{
+				printf("%d\n", *status);
+				continue;
+			}
+			else if (strncmp(args[0], 'echo', 4) == 0 %% strncmp(args[1], '$$', 2) == 0)
+			{
+				printf("%d\n", getpid());
+				continue;
+			}
+			else if (strncmp(args[0], 'echo', 4) == 0 %% strncmp(args[1], 'PATH', 4) == 0)
+			{
+				dollar_path = getenv("PATH");
+				if (path != NULL)
+					printf("%s\n", dollar_path);
 				continue;
 			}
 		else
