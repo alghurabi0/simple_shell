@@ -12,10 +12,44 @@
 #define MAX_ALIASES 64
 /**
  * main - simple shell for Unix based systems
+ * @argc: arguments count
+ * @argv: arguments of main
+ * @line: buffer stores input from stdin
+ * @size: size of line buffer
+ * @chars_read: reads input from stdin
+ * @pid: forks a new process
+ * @args: stores arguments after tokenizing
+ * @token: tokenize stdin
+ * @token_count: keeps track of tokens number
+ * @status: status of the forked process
+ * @path_copy: copies env path
+ * @path: gets env path
+ * @full_path: rearrange env path and arguments in a string
+ * @token_path: tokenize env path
+ * @stat: struct to store paths
+ * @command_executed: command execution status
+ * @exit_status: exit status
+ * @directory: directory
+ * @current_dir: current directory
+ * @new_dir: new directory
+ * @i: int for multiple purposes
+ * @j: int used for printing alias args
+ * @alias_arg: string to copy alias arg
+ * @alias_name: stores alias name
+ * @alias_value: stores alias value
+ * @alias_args: stores alias args
+ * @alias_token_count: keeps track of alias tokens
+ * @alias_token: tokenize alias args
+ * @alias: string to print alias name and value
+ * @aliases: stores aliases set
+ * @num_aliases: number of aliases set
+ * @comments_mode: detects comment mode in the shell
+ * @file_mode: detects file mode input
+ * @input_file: input file passed to shell
  * Return: 0
  */
 extern char **environ;
-int main (int argc, char *argv)
+int main (int argc, char **argv)
 {
 	char *line = NULL;
 	size_t size = 0;
