@@ -96,7 +96,7 @@ int main(int argc, char **argv)
 			if (input_file == NULL)
 			{
 				perror("Error opening file");
-				return 1;
+				return (1);
 			}
 		}
 	}
