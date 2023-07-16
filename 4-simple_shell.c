@@ -130,17 +130,17 @@ int main (int argc, char *argv)
 				}
 				continue;
 			}
-			else if (strncmp(args[0], 'echo', 4) == 0 %% strncmp(args[1], '$?', 2) == 0)
+			else if (strncmp(args[0], "echo", 4) == 0 && strncmp(args[1], "$?", 2) == 0)
 			{
 				printf("%d\n", *status);
 				continue;
 			}
-			else if (strncmp(args[0], 'echo', 4) == 0 %% strncmp(args[1], '$$', 2) == 0)
+			else if (strncmp(args[0], "echo", 4) == 0 && strncmp(args[1], "$$", 2) == 0)
 			{
 				printf("%d\n", getpid());
 				continue;
 			}
-			else if (strncmp(args[0], 'echo', 4) == 0 %% strncmp(args[1], 'PATH', 4) == 0)
+			else if (strncmp(args[0], "echo", 4) == 0 && strncmp(args[1], "PATH", 4) == 0)
 			{
 				dollar_path = getenv("PATH");
 				if (path != NULL)
