@@ -49,7 +49,7 @@
  * Return: 0
  */
 extern char **environ;
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
 	char *line = NULL;
 	size_t size = 0;
@@ -71,7 +71,6 @@ int main (int argc, char **argv)
 	char new_dir[MAX_PATH_LENGTH];
 	int i;
 	int j;
-	// int h;
 	char alias_arg[MAX_PATH_LENGTH];
 	char *alias_name;
 	char *alias_value;
@@ -79,7 +78,7 @@ int main (int argc, char **argv)
 	int alias_token_count;
 	char *alias_token;
 	char alias[MAX_PATH_LENGTH];
-	char *aliases[MAX_ALIASES];  // Array to store aliases
+	char *aliases[MAX_ALIASES];
     int num_aliases = 0;
 	char *dollar_path;
 	bool comments_mode = false;
@@ -142,7 +141,7 @@ int main (int argc, char **argv)
 		 */
 		if (token_count > 0)
 		{
-			if (strncmp(args[0], "exit", 4) ==0)
+			if (strncmp(args[0], "exit", 4) == 0)
 			{
 				if (token_count > 1)
 				{
