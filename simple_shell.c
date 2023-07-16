@@ -250,8 +250,8 @@ int main (int argc, char **argv)
 						// 	h++;
 						// }
 						aliases[num_aliases] = strdup(alias);
-                    	num_aliases++;
-                    	aliases[num_aliases] = NULL;
+                    				num_aliases++;
+                    				aliases[num_aliases] = NULL;
 					}
 					else
 					{
@@ -394,7 +394,7 @@ int main (int argc, char **argv)
 		command_executed = false;
 	}
 	for (i = 0; i < num_aliases; i++)
-        free(aliases[i]);
+        	free(aliases[i]);
 	free(path_copy);
 	free(line);
 	if (file_mode)
