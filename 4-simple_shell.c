@@ -132,7 +132,7 @@ int main (int argc, char *argv)
 			}
 			else if (strncmp(args[0], "echo", 4) == 0 && strncmp(args[1], "$?", 2) == 0)
 			{
-				printf("%d\n", *status);
+				printf("%d\n", &status);
 				continue;
 			}
 			else if (strncmp(args[0], "echo", 4) == 0 && strncmp(args[1], "$$", 2) == 0)
