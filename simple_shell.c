@@ -238,16 +238,17 @@ int main(int argc, char **argv)
 						alias_value = alias_args[1];
 						snprintf(alias, MAX_PATH_LENGTH, "alias %s='%s'", alias_name, alias_value);
 						setenv(alias_name, alias_value, 1);
-						// h = 0;
-						// while (environ[h] != NULL)
-						// {
-						// 		// if (strncmp(environ[h], "alias", 5) == 0 && strncmp(environ[h], alias, strlen(alias)) == 0)
-						// 		// {
-						// 		// 	environ[h] = alias;
-						// 		// 	return;
-						// 		// }
-						// 	h++;
-						// }
+						/* h = 0;
+						while (environ[h] != NULL)
+						{
+								// if (strncmp(environ[h], "alias", 5) == 0 && strncmp(environ[h], alias, strlen(alias)) == 0)
+								// {
+								// 	environ[h] = alias;
+								// 	return;
+								// }
+							h++;
+						}
+						*/
 						aliases[num_aliases] = strdup(alias);
                     				num_aliases++;
                     				aliases[num_aliases] = NULL;
@@ -344,46 +345,47 @@ int main(int argc, char **argv)
 						else
 							perror("access");
 					}
-					// else if (aliases[0] != NULL)
-					// {
-					// 	printf("aliases 0 is not null, %s\n", aliases[0]);
-					// 	for (j = 0; aliases[j] != NULL; j++)
-					// 	{
-					// 		if (strstr(aliases[j], args[0]) != NULL)
-					// 		{
-					// 			alias_token = strtok(aliases[j], "=");
-					// 			alias_token_count = 0;
-					// 			while (alias_token != NULL)
-					// 			{
-					// 				alias_args[alias_token_count] = alias_token;
-					// 				alias_token_count++;
-					// 				alias_token = strtok(NULL, "=");
-					// 			}
-					// 			alias_args[alias_token_count] = NULL;
-					// 			printf("alias value being executed is, %s\n", alias_args[1]);
-					// 			while (alias_args[1])
-					// 			{
-					// 				alias
-					// 			}
-					// 			pid = fork();
-					// 			if (pid == -1)
-					// 			{
-					// 				perror("fork");
-					// 				exit(EXIT_FAILURE);
-					// 			}
-					// 			else if (pid == 0)
-					// 			{
-					// 				execve(alias_args[1], alias_args, environ);
-					// 				exit(EXIT_SUCCESS);
-					// 			}
-					// 			else
-					// 			{
-					// 				wait(&status);
-					// 				command_executed = true;
-					// 			}
-					// 		}
-					// 	}
-					// }
+					/* else if (aliases[0] != NULL)
+					{
+						printf("aliases 0 is not null, %s\n", aliases[0]);
+						for (j = 0; aliases[j] != NULL; j++)
+						{
+							if (strstr(aliases[j], args[0]) != NULL)
+							{
+								alias_token = strtok(aliases[j], "=");
+								alias_token_count = 0;
+								while (alias_token != NULL)
+								{
+									alias_args[alias_token_count] = alias_token;
+									alias_token_count++;
+									alias_token = strtok(NULL, "=");
+								}
+								alias_args[alias_token_count] = NULL;
+								printf("alias value being executed is, %s\n", alias_args[1]);
+								while (alias_args[1])
+								{
+									alias
+								}
+								pid = fork();
+								if (pid == -1)
+								{
+									perror("fork");
+									exit(EXIT_FAILURE);
+								}
+								else if (pid == 0)
+								{
+									execve(alias_args[1], alias_args, environ);
+									exit(EXIT_SUCCESS);
+								}
+								else
+								{
+									wait(&status);
+									command_executed = true;
+								}
+							}
+						}
+					}
+					*/
 					token_path = strtok(NULL, ":");
 				}
 			}
