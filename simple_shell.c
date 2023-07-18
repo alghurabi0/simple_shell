@@ -122,7 +122,7 @@ int main(int argc, char **argv)
 			if (comments_mode || line[0] == '#')
 				continue;
 		}
-		if (line[0] == '\n' || chars_read == '0' || chars_read == (size_t)EOF)
+		if (line[0] == '\n' || chars_read == '0' || chars_read == (ssize_t)EOF)
 			break;
 		/*
 		 * tokenize
