@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 {
 	char *line = NULL;
 	size_t size = 0;
-	size_t chars_read;
+	ssize_t chars_read;
 	pid_t pid;
 	char *args[MAX_ARGS];
 	char *token;
@@ -122,7 +122,7 @@ int main(int argc, char **argv)
 			if (comments_mode || line[0] == '#')
 				continue;
 		}
-		if (line[0] == '\n' || chars_read == '\0' || chars_read == EOF)
+		if (line[0] == '\n' || chars_read == '0' || chars_read == (size_t)EOF)
 			break;
 		/*
 		 * tokenize
