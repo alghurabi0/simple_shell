@@ -247,7 +247,7 @@ void handle_alias_case(char *args[], char *aliases[], int *num_aliases, int toke
 		}
 	}
 }
-void process_mode(int argc, char **argv[], bool *comments_mode, bool *file_mode, FILE **input_file)
+void process_mode(int argc, char *argv[], bool *comments_mode, bool *file_mode, FILE **input_file)
 {
 	if (argc == 2)
 	{
