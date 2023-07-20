@@ -304,11 +304,21 @@ void path(char *args[], bool *command_executed, int *status)
 	}
 	free(path_copy);
 }
+void cleanup(char *aliases[], int num_aliases, char *line, FILE *input_file)
+{
+	int i;
+
+	for (i = 0; i < num_aliases; i++)
+        free(aliases[i]);
+    free(line);
+    if (input_file)
+        fclose(input_file);
+}
 int main(int argc, char **argv)
 {
 	size_t size = 0;
 	ssize_t chars_read;
-	int token_count = 0, status, num_aliases = 0, i, cd_result, is_builtin_command;
+	int token_count = 0, status, num_aliases = 0, cd_result, is_builtin_command;
 	char *line = NULL, *args[MAX_ARGS];
 	char *aliases[MAX_ALIASES];
 	bool command_executed = false, comments_mode = false, file_mode = false;
@@ -441,10 +451,6 @@ int main(int argc, char **argv)
 		}
 		command_executed = false;
 	}
-	for (i = 0; i < num_aliases; i++)
-        	free(aliases[i]);
-	free(line);
-	if (file_mode)
-		fclose(input_file);
+	cleanup(aliases, num_aliases, line, input_file);
 	return (0);
 }
