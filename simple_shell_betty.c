@@ -49,7 +49,7 @@
  * Return: 0
  */
 extern char **environ;
-int execute_command(char full_path, char *args, bool command_executed, int status)
+int execute_command(char *full_path, char *args[], bool *command_executed, int *status)
 {
 	pid_t pid;
 
@@ -69,6 +69,8 @@ int execute_command(char full_path, char *args, bool command_executed, int statu
 		wait(&status);
 		command_executed = true;
 	}
+
+	return (0);
 }
 int main(int argc, char **argv)
 {
@@ -322,7 +324,7 @@ int main(int argc, char **argv)
 					{
 						if (access(full_path, X_OK) == 0)
 						{
-							execute_command(full_path, args, command_executed, status);
+							execute_command(full_path, args, &command_executed, &status);
 						}
 						else
 							perror("access");
