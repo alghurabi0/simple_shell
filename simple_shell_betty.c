@@ -247,6 +247,24 @@ void handle_alias_case(char *args[], char *aliases[], int *num_aliases, int toke
 		}
 	}
 }
+void process_mode(int argc, char **argv[], bool *comments_mode, bool *file_mode, FILE **input_file)
+{
+	if (argc == 2)
+	{
+		if (strcmp(argv[1], "sh") == 0)
+			*comments_mode = true;
+		else
+		{
+			*file_mode = true;
+			*input_file = fopen(argv[1], "r");
+			if (*input_file == NULL)
+			{
+				perror("Error opening file");
+				exit(EXIT_FAILURE);
+			}
+		}
+	}
+}
 int main(int argc, char **argv)
 {
 	char *line = NULL;
@@ -272,21 +290,7 @@ int main(int argc, char **argv)
 	int cd_result;
 	int is_builtin_command;
 
-	if (argc == 2)
-	{
-		if (strcmp(argv[1], "sh") == 0)
-			comments_mode = true;
-		else
-		{
-			file_mode = true;
-			input_file = fopen(argv[1], "r");
-			if (input_file == NULL)
-			{
-				perror("Error opening file");
-				return (1);
-			}
-		}
-	}
+	process_mode(argc, argv, &comments_mode, &file_mode, &input_file);
 	while (1)
 	{
 		if (file_mode)
@@ -301,18 +305,13 @@ int main(int argc, char **argv)
 				printf("# ");
 			else
 				printf("$ ");
-
 			fflush(stdout);
-
 			chars_read = getline(&line, &size, stdin);
 			if (comments_mode || line[0] == '#')
 				continue;
 		}
 		if (line[0] == '\n' || chars_read == '0' || chars_read == (ssize_t)EOF)
 			break;
-		/*
-		 * tokenize
-		 */
 		token = strtok(line, " \t\n");
 		token_count = 0;
 		while (token != NULL && token_count < MAX_ARGS - 1)
@@ -322,9 +321,6 @@ int main(int argc, char **argv)
 			token = strtok(NULL, " \t\n");
 		}
 		args[token_count] = NULL;
-		/*
-		 * execution
-		 */
 		if (token_count > 0)
 		{
 			is_builtin_command = execute_builtin_command(args, token_count);
