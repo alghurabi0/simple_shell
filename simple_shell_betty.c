@@ -143,7 +143,7 @@ int change_directory(char *args[])
     }
     return (0);
 }
-int execute_features(char *args, int *token_count)
+int execute_features(char *args[], int *token_count)
 {
 	if (strncmp(args[0], "exit", 4) == 0)
 	{
@@ -162,7 +162,6 @@ int execute_features(char *args, int *token_count)
 		else
 			if (setenv(args[1], args[2], 1) != 0)
 				perror("setenv");
-		continue;
 	}
 	else if (strcmp(args[0], "unsetenv") == 0)
 	{
@@ -171,7 +170,6 @@ int execute_features(char *args, int *token_count)
 		else
 			if (unsetenv(args[1]) != 0)
 				perror("unsetenv");
-		continue;
 	}
 	return (0);
 }
@@ -264,8 +262,17 @@ int main(int argc, char **argv)
 		 */
 		if (token_count > 0)
 		{
-			execute_features(args, token_count);
-			if (strcmp(args[0], "cd") == 0)
+			if (strncmp(args[0], "exit", 4) == 0 || strcmp(args[0], "setenv") == 0)
+			{
+				execute_features(args, token_count);
+				continue;
+			}
+			else if (strcmp(args[0], "unsetenv") == 0)
+			{
+				execute_features(args, token_count);
+				continue;
+			}
+			else if (strcmp(args[0], "cd") == 0)
 			{
 				cd_result = change_directory(args);
             	if (cd_result != 0)
