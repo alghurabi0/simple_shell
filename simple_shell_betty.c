@@ -178,6 +178,76 @@ int execute_builtin_command(char *args[], int token_count)
         return (0);
     return (1);
 }
+void handle_alias_case(char *args[], char **aliases[], int *num_aliases, int token_count)
+{
+	int i = 0;
+	int j = 1;
+	char alias_arg[MAX_PATH_LENGTH];
+	char *alias_name;
+	char *alias_value;
+	char *alias_args[MAX_ARGS];
+	int alias_token_count;
+	char *alias_token;
+	char alias[MAX_PATH_LENGTH];
+
+	if (token_count == 1)
+	{
+		while (aliases[i] != NULL)
+		{
+			if (strncmp(aliases[i], "alias", 5) == 0)
+				printf("%s\n", aliases[i]);
+			i++;
+		}
+	}
+	else
+	{
+		if (strchr(args[1], '=') != NULL)
+		{
+			strcpy(alias_arg, args[1]);
+			alias_token = strtok(alias_arg, "=");
+			alias_token_count = 0;
+			while (alias_token != NULL)
+			{
+				alias_args[alias_token_count] = alias_token;
+				alias_token_count++;
+				alias_token = strtok(NULL, "=");
+			}
+			alias_args[alias_token_count] = NULL;
+			alias_name = alias_args[0];
+			alias_value = alias_args[1];
+			snprintf(alias, MAX_PATH_LENGTH, "alias %s='%s'", alias_name, alias_value);
+			setenv(alias_name, alias_value, 1);
+			/* h = 0;
+			while (environ[h] != NULL)
+			{
+				// if (strncmp(environ[h], "alias", 5) == 0 && strncmp(environ[h], alias, strlen(alias)) == 0)
+				// {
+					// 	environ[h] = alias;
+					// 	return;
+				// }
+					h++;
+			}
+			*/
+			aliases[*num_aliases] = strdup(alias);
+            *num_aliases++;
+            aliases[*num_aliases] = NULL;
+		}
+		else
+		{
+			while (aliases[i] != NULL)
+			{
+				while (args[j] != NULL)
+				{
+					if (strstr(aliases[i], args[j]) != NULL)
+						printf("%s\n", aliases[i]);
+					j++;
+				}
+			i++;
+			}
+		}
+	}
+	return (0);
+}
 int main(int argc, char **argv)
 {
 	char *line = NULL;
@@ -194,14 +264,6 @@ int main(int argc, char **argv)
 	struct stat fileStat;
 	bool command_executed = false;
 	int i;
-	int j;
-	char alias_arg[MAX_PATH_LENGTH];
-	char *alias_name;
-	char *alias_value;
-	char *alias_args[MAX_ARGS];
-	int alias_token_count;
-	char *alias_token;
-	char alias[MAX_PATH_LENGTH];
 	char *aliases[MAX_ALIASES];
     int num_aliases = 0;
 	char *dollar_path;
@@ -278,65 +340,7 @@ int main(int argc, char **argv)
 			}
 			else if (strcmp(args[0], "alias") == 0)
 			{
-				if (token_count == 1)
-				{
-					i = 0;
-					while (aliases[i] != NULL)
-					{
-						if (strncmp(aliases[i], "alias", 5) == 0)
-							printf("%s\n", aliases[i]);
-						i++;
-					}
-				}
-				else
-				{
-					if (strchr(args[1], '=') != NULL)
-					{
-						strcpy(alias_arg, args[1]);
-						alias_token = strtok(alias_arg, "=");
-						alias_token_count = 0;
-						while (alias_token != NULL)
-						{
-							alias_args[alias_token_count] = alias_token;
-							alias_token_count++;
-							alias_token = strtok(NULL, "=");
-						}
-						alias_args[alias_token_count] = NULL;
-						alias_name = alias_args[0];
-						alias_value = alias_args[1];
-						snprintf(alias, MAX_PATH_LENGTH, "alias %s='%s'", alias_name, alias_value);
-						setenv(alias_name, alias_value, 1);
-						/* h = 0;
-						while (environ[h] != NULL)
-						{
-								// if (strncmp(environ[h], "alias", 5) == 0 && strncmp(environ[h], alias, strlen(alias)) == 0)
-								// {
-								// 	environ[h] = alias;
-								// 	return;
-								// }
-							h++;
-						}
-						*/
-						aliases[num_aliases] = strdup(alias);
-                    				num_aliases++;
-                    				aliases[num_aliases] = NULL;
-					}
-					else
-					{
-						i = 0;
-						while (aliases[i] != NULL)
-						{
-							j = 1;
-							while (args[j] != NULL)
-							{
-								if (strstr(aliases[i], args[j]) != NULL)
-									printf("%s\n", aliases[i]);
-								j++;
-							}
-						i++;
-						}
-					}
-				}
+				handle_alias_case(args, aliases, &num_aliases, token_count);
 				continue;
 			}
 			else if (strncmp(args[0], "echo", 4) == 0 && strncmp(args[1], "$?", 2) == 0)
@@ -365,21 +369,12 @@ int main(int argc, char **argv)
 				while (token_path != NULL && !command_executed)
 				{
 					snprintf(full_path, MAX_PATH_LENGTH, "%s/%s", token_path, args[0]);
-					if (stat(full_path, &fileStat) == 0)
+					if (stat(full_path, &fileStat) == 0 || stat(args[0], &fileStat) == 0)
 					{
 						if (access(full_path, X_OK) == 0)
-						{
 							execute_command(full_path, args, &command_executed, &status);
-						}
-						else
-							perror("access");
-					}
-					else if (stat(args[0], &fileStat) == 0)
-					{
-						if (access(args[0], X_OK) == 0)
-						{
+						else if (access(args[0], X_OK) == 0)
 							execute_full_command(args, &command_executed, &status);
-						}
 						else
 							perror("access");
 					}
