@@ -47,6 +47,7 @@
  * @file_mode: detects file mode input
  * @input_file: input file passed to shell
  * @cd_result: checks the cd status
+ * @is_builtin_command: checks for builtins
  * Return: 0
  */
 extern char **environ;
@@ -225,7 +226,6 @@ int main(int argc, char **argv)
 			}
 		}
 	}
-
 	while (1)
 	{
 		if (file_mode)
