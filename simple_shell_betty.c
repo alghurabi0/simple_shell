@@ -364,6 +364,7 @@ int main(int argc, char **argv)
 				printf("%d\n", getpid());
 				continue;
 			}
+			/*
 			else if (strncmp(args[0], "echo", 4) == 0 && strncmp(args[1], "$PATH", 5) == 0)
 			{
 				dollar_path = getenv("PATH");
@@ -371,6 +372,7 @@ int main(int argc, char **argv)
 					printf("%s\n", dollar_path);
 				continue;
 			}
+			*/
 			else
 			{
 				path(args, &command_executed, &status);
