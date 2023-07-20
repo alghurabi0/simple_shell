@@ -319,8 +319,7 @@ int main(int argc, char **argv)
 	size_t size = 0;
 	ssize_t chars_read;
 	int token_count = 0, status, num_aliases = 0, cd_result, is_builtin_command;
-	char *line = NULL, *args[MAX_ARGS];
-	char *aliases[MAX_ALIASES];
+	char *line = NULL, *args[MAX_ARGS], *aliases[MAX_ALIASES];
 	bool command_executed = false, comments_mode = false, file_mode = false;
 	FILE *input_file = NULL;
 
@@ -384,68 +383,7 @@ int main(int argc, char **argv)
 			}
 			*/
 			else
-			{
 				path(args, &command_executed, &status);
-				/* path = getenv("PATH");
-				path_copy = strdup(path);
-				token_path = strtok(path_copy, ":");
-
-				while (token_path != NULL && !command_executed)
-				{
-					snprintf(full_path, MAX_PATH_LENGTH, "%s/%s", token_path, args[0]);
-					if (stat(full_path, &fileStat) == 0 || stat(args[0], &fileStat) == 0)
-					{
-						if (access(full_path, X_OK) == 0)
-							execute_command(full_path, args, &command_executed, &status);
-						else if (access(args[0], X_OK) == 0)
-							execute_full_command(args, &command_executed, &status);
-						else
-							perror("access");
-					}
-					else if (aliases[0] != NULL)
-					{
-						printf("aliases 0 is not null, %s\n", aliases[0]);
-						for (j = 0; aliases[j] != NULL; j++)
-						{
-							if (strstr(aliases[j], args[0]) != NULL)
-							{
-								alias_token = strtok(aliases[j], "=");
-								alias_token_count = 0;
-								while (alias_token != NULL)
-								{
-									alias_args[alias_token_count] = alias_token;
-									alias_token_count++;
-									alias_token = strtok(NULL, "=");
-								}
-								alias_args[alias_token_count] = NULL;
-								printf("alias value being executed is, %s\n", alias_args[1]);
-								while (alias_args[1])
-								{
-									alias
-								}
-								pid = fork();
-								if (pid == -1)
-								{
-									perror("fork");
-									exit(EXIT_FAILURE);
-								}
-								else if (pid == 0)
-								{
-									execve(alias_args[1], alias_args, environ);
-									exit(EXIT_SUCCESS);
-								}
-								else
-								{
-									wait(&status);
-									command_executed = true;
-								}
-							}
-						}
-					}
-					token_path = strtok(NULL, ":");
-				}
-				*/
-			}
 			if (command_executed == false)
 				fprintf(stderr, "%s: command not found\n", args[0]);
 		}
