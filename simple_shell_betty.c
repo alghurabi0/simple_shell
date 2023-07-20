@@ -229,7 +229,7 @@ void handle_alias_case(char *args[], char *aliases[], int *num_aliases, int toke
 			}
 			*/
 			aliases[*num_aliases] = strdup(alias);
-            *num_aliases++;
+            (*num_aliases)++;
             aliases[*num_aliases] = NULL;
 		}
 		else
@@ -246,7 +246,6 @@ void handle_alias_case(char *args[], char *aliases[], int *num_aliases, int toke
 			}
 		}
 	}
-	return (0);
 }
 int main(int argc, char **argv)
 {
