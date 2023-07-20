@@ -283,7 +283,7 @@ int main(int argc, char **argv)
 {
 	size_t size = 0;
 	ssize_t chars_read;
-	int token_count, status, num_aliases = 0, i, cd_result, is_builtin_command;
+	int token_count = 0, status, num_aliases = 0, i, cd_result, is_builtin_command;
 	char *line = NULL, *args[MAX_ARGS], *path, *path_copy, *token_path;
 	char full_path[MAX_PATH_LENGTH], *aliases[MAX_ALIASES], *dollar_path;
 	struct stat fileStat;
@@ -312,7 +312,7 @@ int main(int argc, char **argv)
 		}
 		if (line[0] == '\n' || chars_read == '0' || chars_read == (ssize_t)EOF)
 			break;
-		tokenize(line, args, token_count);
+		tokenize(line, args, *token_count);
 		if (token_count > 0)
 		{
 			is_builtin_command = execute_builtin_command(args, token_count);
