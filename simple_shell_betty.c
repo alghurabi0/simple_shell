@@ -310,7 +310,7 @@ int main(int argc, char **argv)
 	ssize_t chars_read;
 	int token_count = 0, status, num_aliases = 0, i, cd_result, is_builtin_command;
 	char *line = NULL, *args[MAX_ARGS];
-	char *aliases[MAX_ALIASES], *dollar_path;
+	char *aliases[MAX_ALIASES];
 	bool command_executed = false, comments_mode = false, file_mode = false;
 	FILE *input_file = NULL;
 
