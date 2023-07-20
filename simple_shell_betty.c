@@ -143,35 +143,39 @@ int change_directory(char *args[])
     }
     return (0);
 }
-int execute_features(char *args[], int *token_count)
+int execute_builtin_command(char *args[], int token_count)
 {
-	if (strncmp(args[0], "exit", 4) == 0)
+    int exit_status;
+
+    if (strncmp(args[0], "exit", 4) == 0)
 	{
-		if (token_count > 1)
+        if (token_count > 1)
 		{
-			exit_status = atoi(args[1]);
-			exit(exit_status);
-		}
+            exit_status = atoi(args[1]);
+            exit(exit_status);
+        }
 		else
-			break;
-	}
+            exit(0);
+    }
 	else if (strcmp(args[0], "setenv") == 0)
 	{
-		if (token_count != 3)
-			fprintf(stderr, "Invalid usage of setenv command\n");
-		else
-			if (setenv(args[1], args[2], 1) != 0)
-				perror("setenv");
-	}
+        if (token_count != 3)
+            fprintf(stderr, "Invalid usage of setenv command\n");
+        else
+            if (setenv(args[1], args[2], 1) != 0)
+                perror("setenv");
+    }
 	else if (strcmp(args[0], "unsetenv") == 0)
 	{
-		if (token_count != 2)
-			fprintf(stderr, "Invalid usage of unsetenv command\n");
-		else
-			if (unsetenv(args[1]) != 0)
-				perror("unsetenv");
-	}
-	return (0);
+        if (token_count != 2)
+            fprintf(stderr, "Invalid usage of unsetenv command\n");
+        else
+            if (unsetenv(args[1]) != 0)
+                perror("unsetenv");
+    }
+	else
+        return (0);
+    return (1);
 }
 int main(int argc, char **argv)
 {
@@ -188,7 +192,6 @@ int main(int argc, char **argv)
 	char *token_path;
 	struct stat fileStat;
 	bool command_executed = false;
-	int exit_status;
 	int i;
 	int j;
 	char alias_arg[MAX_PATH_LENGTH];
@@ -262,14 +265,32 @@ int main(int argc, char **argv)
 		 */
 		if (token_count > 0)
 		{
-			if (strncmp(args[0], "exit", 4) == 0 || strcmp(args[0], "setenv") == 0)
+			if (strncmp(args[0], "exit", 4) == 0)
 			{
-				execute_features(args, token_count);
+				if (token_count > 1)
+				{
+					exit_status = atoi(args[1]);
+					exit(exit_status);
+				}
+				else
+					break;
+			}
+			else if (strcmp(args[0], "setenv") == 0)
+			{
+				if (token_count != 3)
+					fprintf(stderr, "Invalid usage of setenv command\n");
+				else
+					if (setenv(args[1], args[2], 1) != 0)
+						perror("setenv");
 				continue;
 			}
 			else if (strcmp(args[0], "unsetenv") == 0)
 			{
-				execute_features(args, token_count);
+				if (token_count != 2)
+					fprintf(stderr, "Invalid usage of unsetenv command\n");
+				else
+					if (unsetenv(args[1]) != 0)
+						perror("unsetenv");
 				continue;
 			}
 			else if (strcmp(args[0], "cd") == 0)
