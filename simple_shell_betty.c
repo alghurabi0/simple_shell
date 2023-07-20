@@ -72,6 +72,29 @@ int execute_command(char *full_path, char *args[], bool *command_executed, int *
 
 	return (0);
 }
+int execute_full_command(char *args[], bool *command_executed, int *status)
+{
+	pid_t pid;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+	{
+		execve(args[0], args, environ);
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		wait(status);
+		*command_executed = true;
+	}
+
+	return (0);
+}
 int main(int argc, char **argv)
 {
 	char *line = NULL;
@@ -333,22 +356,7 @@ int main(int argc, char **argv)
 					{
 						if (access(args[0], X_OK) == 0)
 						{
-							pid = fork();
-							if (pid == -1)
-							{
-								perror("fork");
-								exit(EXIT_FAILURE);
-							}
-							else if (pid == 0)
-							{
-								execve(args[0], args, environ);
-								exit(EXIT_SUCCESS);
-							}
-							else
-							{
-								wait(&status);
-								command_executed = true;
-							}
+							execute_full_command(args, &command_executed, &status);
 						}
 						else
 							perror("access");
