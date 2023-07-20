@@ -279,14 +279,38 @@ void tokenize(char *line, char *args[], int *token_count, int max_args)
 	}
 	args[*token_count] = NULL;
 }
+void path(char *args[], bool *command_executed, int *status)
+{
+	char *path, *path_copy, *token_path, full_path[MAX_PATH_LENGTH];
+	struct stat fileStat;
+
+	path = getenv("PATH");
+	path_copy = strdup(path);
+	token_path = strtok(path_copy, ":");
+
+	while (token_path != NULL && !(*command_executed))
+	{
+		snprintf(full_path, MAX_PATH_LENGTH, "%s/%s", token_path, args[0]);
+		if (stat(full_path, &fileStat) == 0 || stat(args[0], &fileStat) == 0)
+		{
+			if (access(full_path, X_OK) == 0)
+				execute_command(full_path, args, command_executed, status);
+			else if (access(args[0], X_OK) == 0)
+				execute_full_command(args, command_executed, status);
+			else
+				perror("access");
+		}
+		token_path = strtok(NULL, ":");
+	}
+	free(path_copy);
+}
 int main(int argc, char **argv)
 {
 	size_t size = 0;
 	ssize_t chars_read;
 	int token_count = 0, status, num_aliases = 0, i, cd_result, is_builtin_command;
-	char *line = NULL, *args[MAX_ARGS], *path, *path_copy, *token_path;
-	char full_path[MAX_PATH_LENGTH], *aliases[MAX_ALIASES], *dollar_path;
-	struct stat fileStat;
+	char *line = NULL, *args[MAX_ARGS];
+	char *aliases[MAX_ALIASES], *dollar_path;
 	bool command_executed = false, comments_mode = false, file_mode = false;
 	FILE *input_file = NULL;
 
@@ -349,7 +373,8 @@ int main(int argc, char **argv)
 			}
 			else
 			{
-				path = getenv("PATH");
+				path(args, &command_executed, &status);
+				/* path = getenv("PATH");
 				path_copy = strdup(path);
 				token_path = strtok(path_copy, ":");
 
@@ -365,7 +390,7 @@ int main(int argc, char **argv)
 						else
 							perror("access");
 					}
-					/* else if (aliases[0] != NULL)
+					else if (aliases[0] != NULL)
 					{
 						printf("aliases 0 is not null, %s\n", aliases[0]);
 						for (j = 0; aliases[j] != NULL; j++)
@@ -405,9 +430,9 @@ int main(int argc, char **argv)
 							}
 						}
 					}
-					*/
 					token_path = strtok(NULL, ":");
 				}
+				*/
 			}
 			if (command_executed == false)
 				fprintf(stderr, "%s: command not found\n", args[0]);
@@ -416,7 +441,6 @@ int main(int argc, char **argv)
 	}
 	for (i = 0; i < num_aliases; i++)
         	free(aliases[i]);
-	free(path_copy);
 	free(line);
 	if (file_mode)
 		fclose(input_file);
