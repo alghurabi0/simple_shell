@@ -46,6 +46,7 @@
  * @comments_mode: detects comment mode in the shell
  * @file_mode: detects file mode input
  * @input_file: input file passed to shell
+ * @cd_result: checks the cd status
  * Return: 0
  */
 extern char **environ;
@@ -142,6 +143,38 @@ int change_directory(char *args[])
     }
     return (0);
 }
+int execute_features(char *args, int *token_count)
+{
+	if (strncmp(args[0], "exit", 4) == 0)
+	{
+		if (token_count > 1)
+		{
+			exit_status = atoi(args[1]);
+			exit(exit_status);
+		}
+		else
+			break;
+	}
+	else if (strcmp(args[0], "setenv") == 0)
+	{
+		if (token_count != 3)
+			fprintf(stderr, "Invalid usage of setenv command\n");
+		else
+			if (setenv(args[1], args[2], 1) != 0)
+				perror("setenv");
+		continue;
+	}
+	else if (strcmp(args[0], "unsetenv") == 0)
+	{
+		if (token_count != 2)
+			fprintf(stderr, "Invalid usage of unsetenv command\n");
+		else
+			if (unsetenv(args[1]) != 0)
+				perror("unsetenv");
+		continue;
+	}
+	return (0);
+}
 int main(int argc, char **argv)
 {
 	char *line = NULL;
@@ -231,35 +264,8 @@ int main(int argc, char **argv)
 		 */
 		if (token_count > 0)
 		{
-			if (strncmp(args[0], "exit", 4) == 0)
-			{
-				if (token_count > 1)
-				{
-					exit_status = atoi(args[1]);
-					exit(exit_status);
-				}
-				else
-					break;
-			}
-			else if (strcmp(args[0], "setenv") == 0)
-			{
-				if (token_count != 3)
-					fprintf(stderr, "Invalid usage of setenv command\n");
-				else
-					if (setenv(args[1], args[2], 1) != 0)
-						perror("setenv");
-				continue;
-			}
-			else if (strcmp(args[0], "unsetenv") == 0)
-			{
-				if (token_count != 2)
-					fprintf(stderr, "Invalid usage of unsetenv command\n");
-				else
-					if (unsetenv(args[1]) != 0)
-						perror("unsetenv");
-				continue;
-			}
-			else if (strcmp(args[0], "cd") == 0)
+			execute_features(args, token_count);
+			if (strcmp(args[0], "cd") == 0)
 			{
 				cd_result = change_directory(args);
             	if (cd_result != 0)
