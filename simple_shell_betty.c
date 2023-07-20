@@ -101,7 +101,9 @@ int change_directory(char *args[])
     char current_dir[MAX_PATH_LENGTH];
     char new_dir[MAX_PATH_LENGTH];
 
-    if (strcmp(args[1], "-") == 0)
+	if (args[1] == NULL)
+        directory = "/root";
+    else if (strcmp(args[1], "-") == 0)
 	{
         directory = getenv("OLDPWD");
         if (directory == NULL)
@@ -259,14 +261,9 @@ int main(int argc, char **argv)
 			}
 			else if (strcmp(args[0], "cd") == 0)
 			{
-				if (token_count > 2)
+				cd_result = change_directory(args);
+            	if (cd_result != 0)
 					fprintf(stderr, "Invalid usage of cd command\n");
-				else
-				{
-					cd_result = change_directory(args);
-            		if (cd_result != 0)
-						fprintf(stderr, "change directory failed");
-				}
 				continue;
 			}
 			else if (strcmp(args[0], "alias") == 0)
