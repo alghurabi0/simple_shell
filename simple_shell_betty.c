@@ -66,8 +66,8 @@ int execute_command(char *full_path, char *args[], bool *command_executed, int *
 	}
 	else
 	{
-		wait(&status);
-		command_executed = true;
+		wait(status);
+		*command_executed = true;
 	}
 
 	return (0);
