@@ -267,28 +267,14 @@ void process_mode(int argc, char *argv[], bool *comments_mode, bool *file_mode, 
 }
 int main(int argc, char **argv)
 {
-	char *line = NULL;
 	size_t size = 0;
 	ssize_t chars_read;
-	char *args[MAX_ARGS];
-	char *token;
-	int token_count;
-	int status;
-	char *path_copy;
-	char *path;
-	char full_path[MAX_PATH_LENGTH];
-	char *token_path;
+	int token_count, status, num_aliases = 0, i, cd_result, is_builtin_command;
+	char *line = NULL, *args[MAX_ARGS], *token, *path, *path_copy, *token_path;
+	char full_path[MAX_PATH_LENGTH], *aliases[MAX_ALIASES], *dollar_path;
 	struct stat fileStat;
-	bool command_executed = false;
-	int i;
-	char *aliases[MAX_ALIASES];
-    int num_aliases = 0;
-	char *dollar_path;
-	bool comments_mode = false;
-	bool file_mode = false;
+	bool command_executed = false, comments_mode = false, file_mode = false;
 	FILE *input_file = NULL;
-	int cd_result;
-	int is_builtin_command;
 
 	process_mode(argc, argv, &comments_mode, &file_mode, &input_file);
 	while (1)
