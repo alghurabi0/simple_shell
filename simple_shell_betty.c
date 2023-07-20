@@ -100,7 +100,6 @@ int main(int argc, char **argv)
 	char *line = NULL;
 	size_t size = 0;
 	ssize_t chars_read;
-	pid_t pid;
 	char *args[MAX_ARGS];
 	char *token;
 	int token_count;
