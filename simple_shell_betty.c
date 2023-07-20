@@ -312,7 +312,7 @@ int main(int argc, char **argv)
 		}
 		if (line[0] == '\n' || chars_read == '0' || chars_read == (ssize_t)EOF)
 			break;
-		tokenize(line, args, *token_count);
+		tokenize(line, args, &token_count);
 		if (token_count > 0)
 		{
 			is_builtin_command = execute_builtin_command(args, token_count);
