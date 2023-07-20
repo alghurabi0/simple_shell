@@ -265,13 +265,13 @@ void process_mode(int argc, char *argv[], bool *comments_mode, bool *file_mode, 
 		}
 	}
 }
-void tokenize(char *line, char *args[], int *token_count)
+void tokenize(char *line, char *args[], int *token_count, int max_args)
 {
 	char *token;
 
 	token = strtok(line, " \t\n");
 	*token_count = 0;
-	while (token != NULL && *token_count < MAX_ARGS - 1)
+	while (token != NULL && *token_count < max_args - 1)
 	{
 		args[*token_count] = token;
 		(*token_count)++;
@@ -312,7 +312,7 @@ int main(int argc, char **argv)
 		}
 		if (line[0] == '\n' || chars_read == '0' || chars_read == (ssize_t)EOF)
 			break;
-		tokenize(line, args, &token_count);
+		tokenize(line, args, &token_count, MAX_ARGS);
 		if (token_count > 0)
 		{
 			is_builtin_command = execute_builtin_command(args, token_count);
