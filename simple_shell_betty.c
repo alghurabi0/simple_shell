@@ -95,6 +95,51 @@ int execute_full_command(char *args[], bool *command_executed, int *status)
 
 	return (0);
 }
+int change_directory(char *args[])
+{
+    const char *directory;
+    char current_dir[MAX_PATH_LENGTH];
+    char new_dir[MAX_PATH_LENGTH];
+
+    if (strcmp(args[1], "-") == 0)
+	{
+        directory = getenv("OLDPWD");
+        if (directory == NULL)
+		{
+            fprintf(stderr, "OLDPWD not set\n");
+            return (1);
+        }
+        printf("%s\n", directory);
+	}
+	else
+        directory = args[1];
+    if (getcwd(current_dir, sizeof(current_dir)) == NULL)
+	{
+        perror("getcwd");
+        return (1);
+    }
+    if (chdir(directory) != 0)
+	{
+        perror("chdir");
+        return (1);
+    }
+    if (setenv("OLDPWD", current_dir, 1) != 0)
+	{
+        perror("setenv");
+        return (1);
+    }
+    if (getcwd(new_dir, sizeof(new_dir)) == NULL)
+	{
+        perror("getcwd");
+        return (1);
+    }
+    if (setenv("PWD", new_dir, 1) != 0)
+	{
+        perror("setenv");
+        return (1);
+    }
+    return (0);
+}
 int main(int argc, char **argv)
 {
 	char *line = NULL;
@@ -111,9 +156,6 @@ int main(int argc, char **argv)
 	struct stat fileStat;
 	bool command_executed = false;
 	int exit_status;
-	const char *directory;
-	char current_dir[MAX_PATH_LENGTH];
-	char new_dir[MAX_PATH_LENGTH];
 	int i;
 	int j;
 	char alias_arg[MAX_PATH_LENGTH];
@@ -129,6 +171,7 @@ int main(int argc, char **argv)
 	bool comments_mode = false;
 	bool file_mode = false;
 	FILE *input_file = NULL;
+	int cd_result;
 
 	if (argc == 2)
 	{
@@ -220,36 +263,9 @@ int main(int argc, char **argv)
 					fprintf(stderr, "Invalid usage of cd command\n");
 				else
 				{
-					directory = token_count == 1 ? getenv("HOME") : args[1];
-					if (strcmp(directory, "-") == 0)
-					{
-						directory = getenv("OLDPWD");
-						if (directory == NULL)
-						{
-							fprintf(stderr, "OLDPWD not set\n");
-							continue;
-						}
-						printf("%s\n", directory);
-					}
-					if (getcwd(current_dir, sizeof(current_dir)) == NULL)
-					{
-						perror("getcwd");
-						continue;
-					}
-					if (chdir(directory) != 0)
-					{
-						perror("chdir");
-						continue;
-					}
-					if (setenv("OLDPWD", current_dir, 1) != 0)
-						perror("setenv");
-					if (getcwd(new_dir, sizeof(new_dir)) == NULL)
-					{
-						perror("getcwd");
-						continue;
-					}
-					if (setenv("PWD", new_dir, 1) != 0)
-						perror("setenv");
+					cd_result = change_directory(args);
+            		if (cd_result != 0)
+						fprintf(stderr, "change directory failed");
 				}
 				continue;
 			}
