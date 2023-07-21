@@ -314,11 +314,34 @@ void cleanup(char *aliases[], int num_aliases, char *line, FILE *input_file)
     if (input_file)
         fclose(input_file);
 }
+void handle_variable_replacement(char *args[], int *token_count, int last_exit_status)
+{
+    int i;
+	char pid_str[16];
+	char exit_status_str[16];
+
+    for (i = 0; i < *token_count; i++)
+	{
+        if (strcmp(args[i], "$$") == 0)
+		{
+            snprintf(pid_str, sizeof(pid_str), "%d", getpid());
+            free(args[i]);
+            args[i] = strdup(pid_str);
+        }
+		else if (strcmp(args[i], "$?") == 0)
+		{
+            snprintf(exit_status_str, sizeof(exit_status_str), "%d", last_exit_status);
+            free(args[i]);
+            args[i] = strdup(exit_status_str);
+        }
+    }
+}
 int main(int argc, char **argv)
 {
 	size_t size = 0;
 	ssize_t chars_read;
 	int token_count = 0, status, num_aliases = 0, cd_result, is_builtin_command;
+	int last_exit_status = 0;
 	char *line = NULL, *args[MAX_ARGS], *aliases[MAX_ALIASES];
 	bool command_executed = false, comments_mode = false, file_mode = false;
 	FILE *input_file = NULL;
@@ -348,6 +371,7 @@ int main(int argc, char **argv)
 		tokenize(line, args, &token_count, MAX_ARGS);
 		if (token_count > 0)
 		{
+			handle_variable_replacement(args, &token_count, last_exit_status);
 			is_builtin_command = execute_builtin_command(args, token_count);
         	if (is_builtin_command)
             	continue;
@@ -363,25 +387,6 @@ int main(int argc, char **argv)
 				handle_alias_case(args, aliases, &num_aliases, token_count);
 				continue;
 			}
-			else if (strncmp(args[0], "echo", 4) == 0 && strncmp(args[1], "$?", 2) == 0)
-			{
-				printf("%d\n", status);
-				continue;
-			}
-			else if (strncmp(args[0], "echo", 4) == 0 && strncmp(args[1], "$$", 2) == 0)
-			{
-				printf("%d\n", getpid());
-				continue;
-			}
-			/*
-			else if (strncmp(args[0], "echo", 4) == 0 && strncmp(args[1], "$PATH", 5) == 0)
-			{
-				dollar_path = getenv("PATH");
-				if (path != NULL)
-					printf("%s\n", dollar_path);
-				continue;
-			}
-			*/
 			else
 				path(args, &command_executed, &status);
 			if (command_executed == false)
