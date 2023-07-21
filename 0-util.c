@@ -1,5 +1,12 @@
 #include "main.h"
-
+/**
+ * process_mode - checks if the shell mode is in comments or file mode
+ * @argc: args count
+ * @argv: arguments
+ * @comments_mode: bool to check for comments mode
+ * @file_mode: bool to check for file mode
+ * @input_file: file passed to shell
+ */
 void process_mode(int argc, char *argv[], bool *comments_mode, bool *file_mode, FILE **input_file)
 {
 	if (argc == 2)
@@ -18,6 +25,13 @@ void process_mode(int argc, char *argv[], bool *comments_mode, bool *file_mode, 
 		}
 	}
 }
+/**
+ * tokenize - tokenize args
+ * @line: line buffer stores stdin
+ * @args: args
+ * @token_count: token count
+ * @max_args: max args
+ */
 void tokenize(char *line, char *args[], int *token_count, int max_args)
 {
 	char *token;
@@ -32,6 +46,12 @@ void tokenize(char *line, char *args[], int *token_count, int max_args)
 	}
 	args[*token_count] = NULL;
 }
+/**
+ * path - search for executables
+ * @args: args
+ * @command_executed: checks if the command passed has been executed
+ * @status: status of operation
+ */
 void path(char *args[], bool *command_executed, int *status)
 {
 	char *path, *path_copy, *token_path, full_path[MAX_PATH_LENGTH];
@@ -57,6 +77,13 @@ void path(char *args[], bool *command_executed, int *status)
 	}
 	free(path_copy);
 }
+/**
+ * cleanup - handles freeing memory
+ * @aliases: pinter to arrays where aliases are stored
+ * @num_aliases: int to track how many aliases are within the aliases array
+ * @line: buffer stores stdin
+ * @input_file: file passed to the shell
+ */
 void cleanup(char *aliases[], int num_aliases, char *line, FILE *input_file)
 {
 	int i;
@@ -67,6 +94,12 @@ void cleanup(char *aliases[], int num_aliases, char *line, FILE *input_file)
 	if (input_file)
 		fclose(input_file);
 }
+/**
+ * handle_variable_replacement - handles variable replacements
+ * @args: args
+ * @token_count: token count
+ * @last_exit_status: stores exit status
+ */
 void handle_variable_replacement(char *args[], int *token_count, int last_exit_status)
 {
 	int i;
