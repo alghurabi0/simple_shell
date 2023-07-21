@@ -325,13 +325,11 @@ void handle_variable_replacement(char *args[], int *token_count, int last_exit_s
         if (strcmp(args[i], "$$") == 0)
 		{
             snprintf(pid_str, sizeof(pid_str), "%d", getpid());
-            free(args[i]);
             args[i] = strdup(pid_str);
         }
 		else if (strcmp(args[i], "$?") == 0)
 		{
             snprintf(exit_status_str, sizeof(exit_status_str), "%d", last_exit_status);
-            free(args[i]);
             args[i] = strdup(exit_status_str);
         }
     }
