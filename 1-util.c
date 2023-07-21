@@ -1,13 +1,13 @@
 #include "main.h"
 /**
- * execute_command - executes commands
+ * exe - executes commands
  * @full_path: string that contains the full path of the executable file
  * @args: args
  * @command_executed: checks if the command has been executed
  * @status: status of the operation
  * Return: 0
  */
-int execute_command(char *full_path, char *args[], bool *command_executed, int *status)
+int exe(char *full_path, char *args[], bool *command_executed, int *status)
 {
 	pid_t pid;
 

@@ -1,23 +1,23 @@
 #include "main.h"
 /**
- * process_mode - checks if the shell mode is in comments or file mode
+ * mode - checks if the shell mode is in comments or file mode
  * @argc: args count
  * @argv: arguments
- * @comments_mode: bool to check for comments mode
+ * @sh: bool to check for comments mode
  * @file_mode: bool to check for file mode
- * @input_file: file passed to shell
+ * @input: file passed to shell
  */
-void process_mode(int argc, char *argv[], bool *comments_mode, bool *file_mode, FILE **input_file)
+void mode(int argc, char *argv[], bool *sh, bool *file_mode, FILE **input)
 {
 	if (argc == 2)
 	{
 		if (strcmp(argv[1], "sh") == 0)
-			*comments_mode = true;
+			*sh = true;
 		else
 		{
 			*file_mode = true;
-			*input_file = fopen(argv[1], "r");
-			if (*input_file == NULL)
+			*input = fopen(argv[1], "r");
+			if (*input == NULL)
 			{
 				perror("Error opening file");
 				exit(EXIT_FAILURE);
@@ -67,7 +67,7 @@ void path(char *args[], bool *command_executed, int *status)
 		if (stat(full_path, &fileStat) == 0 || stat(args[0], &fileStat) == 0)
 		{
 			if (access(full_path, X_OK) == 0)
-				execute_command(full_path, args, command_executed, status);
+				exe(full_path, args, command_executed, status);
 			else if (access(args[0], X_OK) == 0)
 				execute_full_command(args, command_executed, status);
 			else
@@ -82,9 +82,9 @@ void path(char *args[], bool *command_executed, int *status)
  * @aliases: pinter to arrays where aliases are stored
  * @num_aliases: int to track how many aliases are within the aliases array
  * @line: buffer stores stdin
- * @input_file: file passed to the shell
+ * @input: file passed to the shell
  */
-void cleanup(char *aliases[], int num_aliases, char *line, FILE *input_file)
+void cleanup(char *aliases[], int num_aliases, char *line, FILE *input)
 {
 	int i;
 
@@ -92,15 +92,15 @@ void cleanup(char *aliases[], int num_aliases, char *line, FILE *input_file)
 		free(aliases[i]);
 	free(line);
 	if (input_file)
-		fclose(input_file);
+		fclose(input);
 }
 /**
- * handle_variable_replacement - handles variable replacements
+ * handle_variable - handles variable replacements
  * @args: args
  * @token_count: token count
  * @last_exit_status: stores exit status
  */
-void handle_variable_replacement(char *args[], int *token_count, int last_exit_status)
+void handle_variable(char *args[], int *token_count, int last_exit_status)
 {
 	int i;
 	char pid_str[16];

@@ -12,27 +12,27 @@ int main(int argc, char **argv)
 	int token_count = 0, status, num_aliases = 0, cd_result, is_builtin_command;
 	int last_exit_status = 0;
 	char *line = NULL, *args[MAX_ARGS], *aliases[MAX_ALIASES];
-	bool command_executed = false, comments_mode = false, file_mode = false;
-	FILE *input_file = NULL;
+	bool command_executed = false, sh = false, file_mode = false;
+	FILE *input = NULL;
 
-	process_mode(argc, argv, &comments_mode, &file_mode, &input_file);
+	mode(argc, argv, &sh, &file_mode, &input);
 	while (1)
 	{
 		if (file_mode)
 		{
-			chars_read = getline(&line, &size, input_file);
+			chars_read = getline(&line, &size, input);
 			if (chars_read == -1)
 				break;
 		}
 		else
 		{
-			if (comments_mode)
+			if (sh)
 				printf("# ");
 			else
 				printf("$ ");
 			fflush(stdout);
 			chars_read = getline(&line, &size, stdin);
-			if (comments_mode || line[0] == '#')
+			if (sh || line[0] == '#')
 				continue;
 		}
 		if (line[0] == '\n' || chars_read == '0' || chars_read == (ssize_t)EOF)
@@ -40,7 +40,7 @@ int main(int argc, char **argv)
 		tokenize(line, args, &token_count, MAX_ARGS);
 		if (token_count > 0)
 		{
-			handle_variable_replacement(args, &token_count, last_exit_status);
+			handle_variable(args, &token_count, last_exit_status);
 			is_builtin_command = execute_builtin_command(args, token_count);
 			if (is_builtin_command)
 				continue;
@@ -64,6 +64,6 @@ int main(int argc, char **argv)
 		command_executed = false;
 		last_exit_status = status;
 	}
-	cleanup(aliases, num_aliases, line, input_file);
+	cleanup(aliases, num_aliases, line, input);
 	return (0);
 }
