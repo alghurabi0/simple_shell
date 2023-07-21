@@ -393,6 +393,7 @@ int main(int argc, char **argv)
 				fprintf(stderr, "%s: command not found\n", args[0]);
 		}
 		command_executed = false;
+		last_exit_status = status;
 	}
 	cleanup(aliases, num_aliases, line, input_file);
 	return (0);
