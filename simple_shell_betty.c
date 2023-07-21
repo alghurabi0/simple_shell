@@ -334,6 +334,38 @@ void handle_variable_replacement(char *args[], int *token_count, int last_exit_s
         }
     }
 }
+void execute_logical_command(char *args[], bool *command_executed, int *status, bool and_operator)
+{
+    int i = 0;
+    int token_count = 0;
+    char *command_args[MAX_ARGS];
+
+    while (args[i] != NULL)
+	{
+        if (strcmp(args[i], and_operator ? "&&" : "||") == 0)
+		{
+            command_args[token_count] = NULL;
+            if (token_count > 0)
+			{
+                path(command_args, command_executed, status);
+                if (and_operator && !*command_executed)
+                    break;
+                if (!and_operator && *command_executed)
+                    break;
+            }
+            token_count = 0;
+        }
+		else
+		{
+            command_args[token_count] = args[i];
+            token_count++;
+        }
+        i++;
+    }
+    command_args[token_count] = NULL;
+    if (token_count > 0)
+        path(command_args, command_executed, status);
+}
 int main(int argc, char **argv)
 {
 	size_t size = 0;
@@ -370,6 +402,8 @@ int main(int argc, char **argv)
 		if (token_count > 0)
 		{
 			handle_variable_replacement(args, &token_count, last_exit_status);
+			execute_logical_command(args, &command_executed, &status, true);
+			execute_logical_command(args, &command_executed, &status, false);
 			is_builtin_command = execute_builtin_command(args, token_count);
         	if (is_builtin_command)
             	continue;
