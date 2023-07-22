@@ -30,3 +30,14 @@ void helper3(bool *command_executed, char *args[])
 	if (*command_executed == false)
 		fprintf(stderr, "%s: command not found\n", args[0]);
 }
+/**
+ * helper4 - helper function
+ * @command_executed: checks if command is executed
+ * @last: last exit int
+ * @status: status of operation
+ */
+void helper4(bool *command_executed, int *last, int *status)
+{
+	*command_executed = false;
+	*last = *status;
+}
