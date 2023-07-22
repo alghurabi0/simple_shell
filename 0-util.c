@@ -79,17 +79,11 @@ void path(char *args[], bool *command_executed, int *status)
 }
 /**
  * cleanup - handles freeing memory
- * @aliases: pinter to arrays where aliases are stored
- * @num_aliases: int to track how many aliases are within the aliases array
  * @line: buffer stores stdin
  * @input: file passed to the shell
  */
-void cleanup(char *aliases[], int num_aliases, char *line, FILE *input)
+void cleanup(char *line, FILE *input)
 {
-	int i;
-
-	for (i = 0; i < num_aliases; i++)
-		free(aliases[i]);
 	free(line);
 	if (input)
 		fclose(input);
