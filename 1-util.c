@@ -208,5 +208,5 @@ void handle_alias_case(char *args[], char *aliases[], int *num_aliases, int toke
 				i++;
 			}
 		}
-	}}
+	}
 }

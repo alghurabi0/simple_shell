@@ -91,7 +91,7 @@ void cleanup(char *aliases[], int num_aliases, char *line, FILE *input)
 	for (i = 0; i < num_aliases; i++)
 		free(aliases[i]);
 	free(line);
-	if (input_file)
+	if (input)
 		fclose(input);
 }
 /**
