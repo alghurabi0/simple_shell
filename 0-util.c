@@ -98,9 +98,9 @@ void cleanup(char *aliases[], int num_aliases, char *line, FILE *input)
  * handle_variable - handles variable replacements
  * @args: args
  * @token_count: token count
- * @last_exit_status: stores exit status
+ * @last: stores exit status
  */
-void handle_variable(char *args[], int *token_count, int last_exit_status)
+void handle_variable(char *args[], int *token_count, int last)
 {
 	int i;
 	char pid_str[16];
@@ -115,7 +115,7 @@ void handle_variable(char *args[], int *token_count, int last_exit_status)
 		}
 		else if (strcmp(args[i], "$?") == 0)
 		{
-			snprintf(exit_status_str, sizeof(exit_status_str), "%d", last_exit_status);
+			snprintf(exit_status_str, sizeof(exit_status_str), "%d", last);
 			args[i] = strdup(exit_status_str);
 		}
 	}

@@ -189,3 +189,38 @@ void handle_alias_case(char *args[], char *aliases[], int *num_aliases, int toke
 		}
 	}
 }
+
+handle_file(bool, &file_mode, char *line, ssize_t *chars_read, size_t *size, FILE *input)
+{
+	if (file_mode)
+	{
+		chars_read = getline(&line, &size, input);
+		if (chars_read == -1)
+			break;
+	}
+}
+
+void helper(bool *sh)
+{
+	if (*sh)
+		printf("# ");
+	else
+		printf("$ ");
+	fflush(stdout);
+}
+
+void helper2(int cd_result)
+{
+	if (cd_result != 0)
+		fprintf(stderr, "Invalid usage of cd command\n");
+}
+void helper3(bool *command_executed, char *args[])
+{
+	if (*command_executed == false)
+		fprintf(stderr, "%s: command not found\n", args[0]);
+}
+void helper4(bool *command_executed, int *last, int *status)
+{
+	*command_executed = false;
+	*last = *status;
+}

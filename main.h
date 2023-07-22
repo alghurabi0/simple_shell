@@ -25,7 +25,7 @@ void mode(int argc, char *argv[], bool *sh, bool *file_mode, FILE **input);
 void tokenize(char *line, char *args[], int *token_count, int max_args);
 void path(char *args[], bool *command_executed, int *status);
 void cleanup(char *aliases[], int num_aliases, char *line, FILE *input);
-void handle_variable(char *args[], int *token_count, int last_exit_status);
+void handle_variable(char *args[], int *token_count, int last);
 void helper(bool *sh);
 void helper2(int cd_result);
 void helper3(bool *command_executed, char *args[]);
