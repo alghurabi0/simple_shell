@@ -43,8 +43,7 @@ int main(int argc, char **argv)
 			else if (strcmp(args[0], "cd") == 0)
 			{
 				cd_result = change_directory(args);
-				if (cd_result != 0)
-					fprintf(stderr, "Invalid usage of cd command\n");
+				helper2(cd_result);
 				continue;
 			}
 			else if (strcmp(args[0], "alias") == 0)
@@ -54,8 +53,7 @@ int main(int argc, char **argv)
 			}
 			else
 				path(args, &command_executed, &status);
-			if (command_executed == false)
-				fprintf(stderr, "%s: command not found\n", args[0]);
+			helper3(&command_executed, args);
 		}
 		command_executed = false;
 		last_exit_status = status;

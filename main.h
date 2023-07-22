@@ -27,5 +27,7 @@ void path(char *args[], bool *command_executed, int *status);
 void cleanup(char *aliases[], int num_aliases, char *line, FILE *input);
 void handle_variable(char *args[], int *token_count, int last_exit_status);
 void helper(bool *sh);
+void helper2(int cd_result);
+void helper3(bool *command_executed, char *args[]);
 
 #endif
