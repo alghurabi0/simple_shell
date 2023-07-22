@@ -26,11 +26,7 @@ int main(int argc, char **argv)
 		}
 		else
 		{
-			if (sh)
-				printf("# ");
-			else
-				printf("$ ");
-			fflush(stdout);
+			helper(&sh);
 			chars_read = getline(&line, &size, stdin);
 			if (sh || line[0] == '#')
 				continue;

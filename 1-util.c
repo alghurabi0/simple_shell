@@ -104,11 +104,7 @@ int change_directory(char *args[])
 		perror("getcwd");
 		return (1);
 	}
-	if (setenv("PWD", new_dir, 1) != 0)
-	{
-		perror("setenv");
-		return (1);
-	}
+	setenv("PWD", new_dir, 1);
 	return (0);
 }
 /**

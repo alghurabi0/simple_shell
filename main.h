@@ -26,5 +26,6 @@ void tokenize(char *line, char *args[], int *token_count, int max_args);
 void path(char *args[], bool *command_executed, int *status);
 void cleanup(char *aliases[], int num_aliases, char *line, FILE *input);
 void handle_variable(char *args[], int *token_count, int last_exit_status);
+void helper(bool *sh);
 
 #endif
