@@ -72,7 +72,7 @@ int change_directory(char *args[])
 
 	if (args[1] == NULL)
 		directory = "/root";
-	else if (strcmp(args[1], "-") == 0)
+	else if (strncmp(args[1], "-", 1) == 0)
 	{
 		directory = getenv("OLDPWD");
 		if (directory == NULL)
