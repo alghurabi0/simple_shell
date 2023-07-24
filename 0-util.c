@@ -16,7 +16,7 @@ void mode(int argc, char *argv[], bool *sh, bool *file_mode, FILE **input)
 		else
 		{
 			*file_mode = true;
-			*input = my_fopen(argv[1], "r");
+			*input = fopen(argv[1], "r");
 			if (*input == NULL)
 			{
 				perror("Error opening file");

@@ -37,8 +37,6 @@ size_t my_strlen(const char *s);
 void *my_memcpy(void *dest, const void *src, size_t n);
 char *my_strdup(const char *s);
 int my_atoi(const char *str);
-FILE* my_fopen(const char *filename, const char *mode);
-char* my_getenv(const char *name);
-int my_setenv(const char *name, const char *value, int overwrite);
-int my_unsetenv(const char *name);
+char *my_getenv(const char *name);
+
 #endif

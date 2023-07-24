@@ -134,7 +134,7 @@ int execute_builtin_command(char *args[], int token_count)
 		if (token_count != 3)
 			write(fd, message, my_strlen(message));
 		else
-			if (my_setenv(args[1], args[2], 1) != 0)
+			if (setenv(args[1], args[2], 1) != 0)
 				perror("setenv");
 	}
 	else if (my_strcmp(args[0], "unsetenv") == 0)
@@ -142,44 +142,10 @@ int execute_builtin_command(char *args[], int token_count)
 		if (token_count != 2)
 			fprintf(stderr, "Invalid usage of unsetenv command\n");
 		else
-			if (my_unsetenv(args[1]) != 0)
+			if (unsetenv(args[1]) != 0)
 				perror("unsetenv");
 	}
 	else
 		return (0);
 	return (1);
-}
-/**
- * my_fopen - custom implementation of fopen using open system call
- * @filename: file name to open
- * @mode: file mode (e.g., "r", "w", "a", etc.)
- * Return: FILE pointer on success, NULL on failure
- */
-FILE* my_fopen(const char *filename, const char *mode)
-{
-    int fd;
-    int flags = 0;
-	FILE *file;
-
-    if (strcmp(mode, "r") == 0)
-        flags = O_RDONLY;
-    else if (strcmp(mode, "w") == 0)
-        flags = O_WRONLY | O_CREAT | O_TRUNC;
-    else if (strcmp(mode, "a") == 0)
-        flags = O_WRONLY | O_CREAT | O_APPEND;
-    fd = open(filename, flags, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-    if (fd == -1)
-	{
-        perror("my_fopen");
-        return (NULL);
-    }
-
-    file = fdopen(fd, mode);
-    if (file == NULL)
-	{
-        perror("my_fdopen");
-        close(fd);
-        return (NULL);
-    }
-    return (file);
 }
