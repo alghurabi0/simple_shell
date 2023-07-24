@@ -24,7 +24,7 @@ void tokenize(char *line, char *args[], int *token_count, int max_args);
 void path(char *args[], bool *command_executed, int *status);
 void cleanup(char *line, FILE *input);
 void handle_variable(char *args[], int *token_count, int last);
-void helper(bool *sh);
+/* void helper(bool *sh); */
 void helper2(int cd_result);
 void helper3(bool *command_executed, char *args[]);
 void helper4(bool *command_executed, int *last, int *status);

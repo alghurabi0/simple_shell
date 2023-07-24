@@ -21,7 +21,6 @@ int main(int argc, char **argv)
 			chars_read = getline(&line, &size, input);
 		else
 		{
-			helper(&sh);
 			chars_read = getline(&line, &size, stdin);
 			if (sh || line[0] == '#')
 				continue;

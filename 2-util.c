@@ -2,7 +2,7 @@
 /**
  * helper - helper function
  * @sh: checks comments mode
- */
+ *
 void helper(bool *sh)
 {
 	if (*sh)
@@ -10,7 +10,7 @@ void helper(bool *sh)
 	else
 		printf("$ ");
 	fflush(stdout);
-}
+} */
 /**
  * helper2 - helper function
  * @cd_result: change directory function return flag
