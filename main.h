@@ -11,6 +11,8 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include <stddef.h>
+#include <sys/types.h>
+#include <fcntl.h>
 #define MAX_ARGS 64
 #define MAX_PATH_LENGTH 1024
 
@@ -35,4 +37,5 @@ size_t my_strlen(const char *s);
 void *my_memcpy(void *dest, const void *src, size_t n);
 char *my_strdup(const char *s);
 int my_atoi(const char *str);
+FILE* my_fopen(const char *filename, const char *mode);
 #endif
