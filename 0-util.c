@@ -58,7 +58,7 @@ void path(char *args[], bool *command_executed, int *status)
 	struct stat fileStat;
 
 	path = getenv("PATH");
-	path_copy = strdup(path);
+	path_copy = my_strdup(path);
 	token_path = strtok(path_copy, ":");
 
 	while (token_path != NULL && !(*command_executed))
@@ -105,12 +105,12 @@ void handle_variable(char *args[], int *token_count, int last)
 		if (my_strcmp(args[i], "$$") == 0)
 		{
 			snprintf(pid_str, sizeof(pid_str), "%d", getpid());
-			args[i] = strdup(pid_str);
+			args[i] = my_strdup(pid_str);
 		}
 		else if (my_strcmp(args[i], "$?") == 0)
 		{
 			snprintf(exit_status_str, sizeof(exit_status_str), "%d", last);
-			args[i] = strdup(exit_status_str);
+			args[i] = my_strdup(exit_status_str);
 		}
 	}
 }

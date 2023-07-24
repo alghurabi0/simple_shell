@@ -31,4 +31,7 @@ void helper3(bool *command_executed, char *args[]);
 void helper4(bool *command_executed, int *last, int *status);
 int my_strcmp(const char *s1, const char *s2);
 int my_strncmp(const char *s1, const char *s2, size_t n);
+size_t my_strlen(const char *s);
+void *my_memcpy(void *dest, const void *src, size_t n);
+char *my_strdup(const char *s);
 #endif
