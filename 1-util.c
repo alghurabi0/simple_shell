@@ -67,7 +67,7 @@ int execute_full_command(char *args[], bool *command_executed, int *status)
  */
 int change_directory(char *args[])
 {
-	const char *directory, *hi = "OLDPWD", *bye = "PWD";
+	const char *directory, **hi = "OLDPWD", **bye = "PWD";
 	char current_dir[MAX_PATH_LENGTH], new_dir[MAX_PATH_LENGTH];
 
 	if (args[1] == NULL)
