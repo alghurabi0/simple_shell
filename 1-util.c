@@ -172,7 +172,7 @@ FILE* my_fopen(const char *filename, const char *mode)
         return (NULL);
     }
 
-    *file = fdopen(fd, mode);
+    file = fdopen(fd, mode);
     if (file == NULL)
 	{
         perror("my_fdopen");
