@@ -72,7 +72,7 @@ int change_directory(char *args[])
 
 	if (args[1] == NULL)
 		directory = "/root";
-	else if (strncmp(args[1], "-", 1) == 0)
+	else if (my_strncmp(args[1], "-", 1) == 0)
 	{
 		directory = getenv("OLDPWD");
 		if (directory == NULL)
@@ -117,7 +117,7 @@ int execute_builtin_command(char *args[], int token_count)
 {
 	int exit_status;
 
-	if (strncmp(args[0], "exit", 4) == 0)
+	if (my_strncmp(args[0], "exit", 4) == 0)
 	{
 		if (token_count > 1)
 		{
