@@ -94,7 +94,7 @@ int change_directory(char *args[])
 		perror("chdir");
 		return (1);
 	}
-	if (setenv("OLDPWD", current_dir, 1) != 0)
+	if (my_setenv("OLDPWD", current_dir, 1) != 0)
 	{
 		perror("setenv");
 		return (1);
@@ -104,7 +104,7 @@ int change_directory(char *args[])
 		perror("getcwd");
 		return (1);
 	}
-	setenv("PWD", new_dir, 1);
+	my_setenv("PWD", new_dir, 1);
 	return (0);
 }
 /**
@@ -132,7 +132,7 @@ int execute_builtin_command(char *args[], int token_count)
 		if (token_count != 3)
 			fprintf(stderr, "Invalid usage of setenv command\n");
 		else
-			if (setenv(args[1], args[2], 1) != 0)
+			if (my_setenv(args[1], args[2], 1) != 0)
 				perror("setenv");
 	}
 	else if (my_strcmp(args[0], "unsetenv") == 0)
@@ -140,7 +140,7 @@ int execute_builtin_command(char *args[], int token_count)
 		if (token_count != 2)
 			fprintf(stderr, "Invalid usage of unsetenv command\n");
 		else
-			if (unsetenv(args[1]) != 0)
+			if (my_unsetenv(args[1]) != 0)
 				perror("unsetenv");
 	}
 	else

@@ -39,4 +39,6 @@ char *my_strdup(const char *s);
 int my_atoi(const char *str);
 FILE* my_fopen(const char *filename, const char *mode);
 char* my_getenv(const char *name);
+int my_setenv(const char *name, const char *value, int overwrite);
+int my_unsetenv(const char *name);
 #endif
