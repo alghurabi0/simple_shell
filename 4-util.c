@@ -38,7 +38,7 @@ int my_setenv(const char *name, const char *value, int overwrite)
         return (0);
     n_len = my_strlen(name);
     v_len = value ? my_strlen(value) : 0;
-    *en_en = (char *)malloc(n_len + v_len + 2);
+    en_en = (char *)malloc(n_len + v_len + 2);
     if (en_en == NULL)
         return (-1);
     snprintf(en_en, n_len + v_len + 2, "%s=%s", name, value ? value : "");
