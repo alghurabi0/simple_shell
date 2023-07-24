@@ -57,7 +57,7 @@ void path(char *args[], bool *command_executed, int *status)
 	char *path, *path_copy, *token_path, full_path[MAX_PATH_LENGTH];
 	struct stat fileStat;
 
-	path = getenv("PATH");
+	path = my_getenv("PATH");
 	path_copy = my_strdup(path);
 	token_path = strtok(path_copy, ":");
 

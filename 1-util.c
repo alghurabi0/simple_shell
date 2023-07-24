@@ -74,7 +74,7 @@ int change_directory(char *args[])
 		directory = "/root";
 	else if (my_strncmp(args[1], "-", 1) == 0)
 	{
-		directory = getenv("OLDPWD");
+		directory = my_getenv("OLDPWD");
 		if (directory == NULL)
 		{
 			fprintf(stderr, "OLDPWD not set\n");
