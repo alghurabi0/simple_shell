@@ -94,7 +94,7 @@ int change_directory(char *args[])
 		perror("chdir");
 		return (1);
 	}
-	if (my_setenv(hi, current_dir, 1) != 0)
+	if (my_setenv(&hi, current_dir, 1) != 0)
 	{
 		perror("setenv");
 		return (1);
@@ -104,7 +104,7 @@ int change_directory(char *args[])
 		perror("getcwd");
 		return (1);
 	}
-	my_setenv(bye, new_dir, 1);
+	my_setenv(&bye, new_dir, 1);
 	return (0);
 }
 /**
