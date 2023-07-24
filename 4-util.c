@@ -30,7 +30,7 @@ char* my_getenv(const char *name)
 int my_setenv(const char *name, const char *value, int overwrite)
 {
     size_t n_len, v_len, environ_size = 0, i;
-    char *en_en, **env = environ;
+    char *en_en, **env = environ, **new_environ;
 
     if (name == NULL || *name == '\0')
         return (-1);
@@ -62,7 +62,7 @@ int my_setenv(const char *name, const char *value, int overwrite)
     }
     while (environ[environ_size] != NULL)
         environ_size++;
-    char **new_environ = (char **)malloc((environ_size + 2) * sizeof(char *));
+    new_environ = (char **)malloc((environ_size + 2) * sizeof(char *));
     if (new_environ == NULL)
     {
         free(en_en);
