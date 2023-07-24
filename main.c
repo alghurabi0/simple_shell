@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 		builtin = execute_builtin_command(args, token_count);
 		if (builtin)
 			continue;
-		else if (args[0] == "cd")
+		else if (my_strcmp(args[0], "cd") == 0)
 		{
 			cd_result = change_directory(args);
 			helper2(cd_result);

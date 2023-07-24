@@ -11,7 +11,7 @@ void mode(int argc, char *argv[], bool *sh, bool *file_mode, FILE **input)
 {
 	if (argc == 2)
 	{
-		if (argv[1] == 'sh')
+		if (strcmp(argv[1], "sh") == 0)
 			*sh = true;
 		else
 		{
