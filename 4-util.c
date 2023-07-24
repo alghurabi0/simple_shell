@@ -62,7 +62,7 @@ int my_setenv(const char *name, const char *value, int overwrite)
     }
     while (environ[environ_size] != NULL)
         environ_size++;
-    **new_environ = (char **)malloc((environ_size + 2) * sizeof(char *));
+    *new_environ = (char **)malloc((environ_size + 2) * sizeof(char *));
     if (new_environ == NULL)
     {
         free(en_en);
@@ -83,12 +83,11 @@ int my_setenv(const char *name, const char *value, int overwrite)
 int my_unsetenv(const char *name)
 {
     size_t name_len;
-    char **env;
+    char **env = environ;
 
     if (name == NULL || *name == '\0')
         return (-1);
     name_len = my_strlen(name);
-    **env = environ;
     while (*env)
     {
         if (my_strncmp(*env, name, name_len) == 0 && (*env)[name_len] == '=')
