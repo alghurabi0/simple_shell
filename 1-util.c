@@ -67,7 +67,7 @@ int execute_full_command(char *args[], bool *command_executed, int *status)
  */
 int change_directory(char *args[])
 {
-	const char *directory, **hi = "OLDPWD", **bye = "PWD";
+	const char *directory;
 	char current_dir[MAX_PATH_LENGTH], new_dir[MAX_PATH_LENGTH];
 
 	if (args[1] == NULL)
@@ -94,7 +94,7 @@ int change_directory(char *args[])
 		perror("chdir");
 		return (1);
 	}
-	if (my_setenv(*hi, current_dir, 1) != 0)
+	if (setenv("OLDPWD", current_dir, 1) != 0)
 	{
 		perror("setenv");
 		return (1);
@@ -104,7 +104,7 @@ int change_directory(char *args[])
 		perror("getcwd");
 		return (1);
 	}
-	my_setenv(*bye, new_dir, 1);
+	setenv("PWD", new_dir, 1);
 	return (0);
 }
 /**
