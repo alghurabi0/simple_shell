@@ -11,7 +11,7 @@ void mode(int argc, char *argv[], bool *sh, bool *file_mode, FILE **input)
 {
 	if (argc == 2)
 	{
-		if (strcmp(argv[1], "sh") == 0)
+		if (my_strcmp(argv[1], "sh") == 0)
 			*sh = true;
 		else
 		{
@@ -102,12 +102,12 @@ void handle_variable(char *args[], int *token_count, int last)
 
 	for (i = 0; i < *token_count; i++)
 	{
-		if (strcmp(args[i], "$$") == 0)
+		if (my_strcmp(args[i], "$$") == 0)
 		{
 			snprintf(pid_str, sizeof(pid_str), "%d", getpid());
 			args[i] = strdup(pid_str);
 		}
-		else if (strcmp(args[i], "$?") == 0)
+		else if (my_strcmp(args[i], "$?") == 0)
 		{
 			snprintf(exit_status_str, sizeof(exit_status_str), "%d", last);
 			args[i] = strdup(exit_status_str);

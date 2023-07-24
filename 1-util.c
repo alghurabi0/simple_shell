@@ -127,7 +127,7 @@ int execute_builtin_command(char *args[], int token_count)
 		else
 			exit(0);
 	}
-	else if (strcmp(args[0], "setenv") == 0)
+	else if (my_strcmp(args[0], "setenv") == 0)
 	{
 		if (token_count != 3)
 			fprintf(stderr, "Invalid usage of setenv command\n");
@@ -135,7 +135,7 @@ int execute_builtin_command(char *args[], int token_count)
 			if (setenv(args[1], args[2], 1) != 0)
 				perror("setenv");
 	}
-	else if (strcmp(args[0], "unsetenv") == 0)
+	else if (my_strcmp(args[0], "unsetenv") == 0)
 	{
 		if (token_count != 2)
 			fprintf(stderr, "Invalid usage of unsetenv command\n");
