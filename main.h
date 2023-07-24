@@ -10,6 +10,7 @@
 #include <stdbool.h>
 #include <sys/stat.h>
 #include <errno.h>
+#include <stddef.h>
 #define MAX_ARGS 64
 #define MAX_PATH_LENGTH 1024
 
