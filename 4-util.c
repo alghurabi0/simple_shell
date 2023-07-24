@@ -1,14 +1,5 @@
 #include "main.h"
 /**
- * my_fclose - custom implementation of fclose using close system call
- * @fd: file descriptor to close
- * Return: 0 on success, -1 on failure
- */
-int my_fclose(int fd)
-{
-    return close(fd);
-}
-/**
  * my_getenv - custom implementation of getenv
  * @name: name of the environment variable to retrieve
  * Return: Pointer to the value of the environment variable, or NULL if not found

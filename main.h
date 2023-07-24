@@ -38,6 +38,5 @@ void *my_memcpy(void *dest, const void *src, size_t n);
 char *my_strdup(const char *s);
 int my_atoi(const char *str);
 FILE* my_fopen(const char *filename, const char *mode);
-int my_fclose(int fd);
 char* my_getenv(const char *name);
 #endif
