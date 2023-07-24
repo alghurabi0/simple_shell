@@ -116,6 +116,8 @@ int change_directory(char *args[])
 int execute_builtin_command(char *args[], int token_count)
 {
 	int exit_status;
+	int fd = STDERR_FILENO;
+	const char *message = "Invalid usage of setenv command\n";
 
 	if (my_strncmp(args[0], "exit", 4) == 0)
 	{
@@ -130,7 +132,7 @@ int execute_builtin_command(char *args[], int token_count)
 	else if (my_strcmp(args[0], "setenv") == 0)
 	{
 		if (token_count != 3)
-			fprintf(stderr, "Invalid usage of setenv command\n");
+			write(fd, message, my_strlen(message));
 		else
 			if (my_setenv(args[1], args[2], 1) != 0)
 				perror("setenv");
