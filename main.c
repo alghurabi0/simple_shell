@@ -40,7 +40,7 @@ int main(int argc, char **argv)
 		}
 		else
 			path(args, &command_executed, &status);
-		helper3(&command_executed, args);
+		helper3(&command_executed, args, argv);
 		helper4(&command_executed, &last, &status);
 	}
 	cleanup(line, input);
