@@ -37,7 +37,7 @@ void helper2(int cd_result)
 void helper3(bool *command_executed, char *args[], char *argv[])
 {
 	if (*command_executed == false)
-		fprintf(stderr, "%s: %d: %s: not found\n", argv[0], getpid(), args[0]);
+		fprintf(stderr, "%s: %d: %s: not found\n", argv[0], 1, args[0]);
 }
 /**
  * helper4 - helper function
