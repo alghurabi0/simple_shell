@@ -69,7 +69,7 @@ int special_cases(char *args[], bool *command_executed, int *status)
 	}
 	else
 	{
-		fprintf(stderr, "./hsh: 1: %s: not found", args[0]);
+		fprintf(stderr, "./hsh: 1: %s: not found\n", args[0]);
 		exit(127);
 	}
 	return(0);
