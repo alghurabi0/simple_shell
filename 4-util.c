@@ -59,7 +59,7 @@ int chdir_and_update_env(const char *directory)
 	}
 	if (chdir(directory) != 0)
 	{
-		perror("chdir");
+		fprintf(stderr, "./hsh: 1: cd: can't cd to %s\n", directory);
 		return (1);
 	}
 	if (setenv("OLDPWD", current_dir, 1) != 0)
