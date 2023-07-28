@@ -22,23 +22,16 @@ char *my_getenv(const char *name)
 }
 
 /**
- * helper3 - helper function
- * @command_executed: check if command is executed
- * @args: args
- */
-void helper3(bool *command_executed, char *args[], char *argv[])
-{
-	if (*command_executed == false)
-		fprintf(stderr, "%s: %d: %s: not found\n",argv[0], 1, args[0]);
-}
-/**
  * helper4 - helper function
  * @command_executed: checks if command is executed
  * @last: last exit int
  * @status: status of operation
+ * @args: args
  */
-void helper4(bool *command_executed, int *last, int *status)
+void helper4(bool *command_executed, char *args[], int *last, int *status)
 {
+	if (*command_executed == false)
+		fprintf(stderr, "./hsh: %d: %s: not found\n", argv[0], 1, args[0]);
 	*command_executed = false;
 	*last = *status;
 }

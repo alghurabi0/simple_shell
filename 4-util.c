@@ -18,6 +18,8 @@ bool empty_or_not(const char *line)
  * check_exit - executes exit command
  * @token_count: args count
  * @args: args
+ * @line: line
+ * @input: input
  */
 void check_exit(char *args[], int token_count, char *line, FILE *input)
 {
@@ -39,7 +41,7 @@ void check_exit(char *args[], int token_count, char *line, FILE *input)
  * cd_home - handles "cd" command with no arguments (cd to $HOME)
  * Return: 0 on success, 1 on failure
  */
-int cd_home()
+int cd_home(void)
 {
 	const char *home = my_getenv("HOME");
 
