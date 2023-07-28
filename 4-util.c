@@ -34,6 +34,11 @@ void check_exit(char *args[], int token_count, char *line, FILE *input)
 			fprintf(stderr, "./hsh: 1: exit: Illegal number: %d\n", exit_st);
 			exit(2);
 		}
+		else if (scanf("%d", &exit_st) == 0)
+		{
+			cleanup(line,input);
+			fprintf(stderr, "./hsh: 1: exit: Illegal number: %s\n", exit_st);
+		}
 		cleanup(line, input);
 		exit(exit_st);
 	}
