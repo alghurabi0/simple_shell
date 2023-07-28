@@ -34,10 +34,10 @@ void helper2(int cd_result)
  * @command_executed: check if command is executed
  * @args: args
  */
-void helper3(bool *command_executed, char *args[])
+void helper3(bool *command_executed, char *args[], char *argv[])
 {
 	if (*command_executed == false)
-		fprintf(stderr, "%s: command not found\n", args[0]);
+		fprintf(stderr, "%s: %d: %s: not found\n",argv[0], 1, args[0]);
 }
 /**
  * helper4 - helper function
