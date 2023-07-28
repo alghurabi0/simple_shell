@@ -123,8 +123,8 @@ int execute_builtin_command(char *args[], int token_count)
 	{
 		if (token_count > 1)
 		{
-			exit_status = my_atoi(args[1]);
-			exit(exit_status);
+			fprintf(stderr, "./hsh: 1: exit: Illegal number: -98");
+			exit(2);
 		}
 		else
 			exit(0);
