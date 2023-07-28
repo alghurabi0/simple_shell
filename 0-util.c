@@ -76,6 +76,8 @@ int path(char *args[], bool *command_executed, int *status)
 			else
 				perror("access");
 		}
+		else
+			*status = 127;
 		token_path = strtok(NULL, ":");
 	}
 	free(path_copy);
