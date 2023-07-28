@@ -23,18 +23,18 @@ bool empty_or_not(const char *line)
  */
 void check_exit(char *args[], int token_count, char *line, FILE *input)
 {
-	int exit_status;
+	int exit_st;
 
 	if (token_count > 1)
 	{
-		exit_status = my_atoi(args[1]);
-		if (exit_status == -98)
+		exit_st = my_atoi(args[1]);
+		if (exit_st < 0)
 		{
-			fprintf(stderr, "./hsh: 1: exit: Illegal number: -98\n");
+			fprintf(stderr, "./hsh: 1: exit: Illegal number: %d\n", exit_st);
 			exit(2);
 		}
 		cleanup(line, input);
-		exit(exit_status);
+		exit(exit_st);
 	}
 	else
 	{
