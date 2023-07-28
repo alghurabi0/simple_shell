@@ -55,6 +55,7 @@ int my_strcmp(const char *s1, const char *s2)
  * @args: args
  * @command_executed: command
  * @status: status
+ * Return: int
  */
 int special_cases(char *args[], bool *command_executed, int *status)
 {
@@ -69,5 +70,5 @@ int special_cases(char *args[], bool *command_executed, int *status)
 	}
 	else
 		*status = 127;
-	return(0);
+	return (0);
 }
