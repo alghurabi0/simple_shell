@@ -115,7 +115,6 @@ int change_directory(char *args[])
  */
 int execute_builtin_command(char *args[], int token_count)
 {
-	int exit_status;
 	int fd = STDERR_FILENO;
 	const char *message = "Invalid usage of setenv command\n";
 
