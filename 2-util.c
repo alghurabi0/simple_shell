@@ -68,6 +68,9 @@ int special_cases(char *args[], bool *command_executed, int *status)
 			perror("access");
 	}
 	else
+	{
 		perror("stat");
+		exit(127);
+	}
 	return(0);
 }
