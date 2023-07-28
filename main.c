@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 	size_t size = 0;
 	ssize_t chars_read;
 	int token_count = 0, status, builtin, last = 0;
-	char *line = NULL, *args[MAX_ARGS], char *pos;
+	char *line = NULL, *args[MAX_ARGS], *pos;
 	bool command_executed = false, sh = false, file_mode = false;
 	FILE *input = NULL;
 
