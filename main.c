@@ -48,13 +48,3 @@ int main(int argc, char **argv)
 	cleanup(line, input);
 	return (0);
 }
-bool empty_or_not(const char *line)
-{
-	while (*line)
-	{
-		if (!isspace(*line))
-			return (false);
-		line++;
-	}
-	return (true);
-}
