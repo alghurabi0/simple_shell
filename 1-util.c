@@ -71,7 +71,14 @@ int change_directory(char *args[])
 	char current_dir[MAX_PATH_LENGTH], new_dir[MAX_PATH_LENGTH];
 
 	if (args[1] == NULL)
-		directory = "/root";
+	{
+		directory = my_getenv("HOME");
+		if (directory == NULL)
+		{
+			fprintf(stderr, "cd: HOME not set\n");
+			return (1);
+		}
+	}
 	else if (my_strncmp(args[1], "-", 1) == 0)
 	{
 		directory = my_getenv("OLDPWD");
@@ -119,21 +126,7 @@ int execute_builtin_command(char *args[], int token_count)
 	int fd = STDERR_FILENO;
 	const char *message = "Invalid usage of setenv command\n";
 
-<<<<<<< HEAD
 	if (my_strcmp(args[0], "setenv") == 0)
-=======
-	if (my_strncmp(args[0], "exit", 4) == 0)
-	{
-		if (token_count > 1)
-		{
-			exit_status = my_atoi(args[1]);
-			exit(exit_status);
-		}
-		else
-			exit(0);
-	}
-	else if (my_strcmp(args[0], "setenv") == 0)
->>>>>>> cb75206a0dddefa30f8a9ae02a34e98722de57d8
 	{
 		if (token_count != 3)
 			write(fd, message, my_strlen(message));
