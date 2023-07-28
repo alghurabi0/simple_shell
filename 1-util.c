@@ -68,6 +68,7 @@ int execute_full_command(char *args[], bool *command_executed, int *status)
 int change_directory(char *args[])
 {
 	const char *directory;
+	char test[MAX_PATH_LENGTH];
 
 	if (args[1] == NULL)
 		return (cd_home());
@@ -75,7 +76,11 @@ int change_directory(char *args[])
 	{
 		directory = my_getenv("OLDPWD");
 		if (directory == NULL)
+		{
+			getcwd(test, sizeof(test))
+			printf("%s\n", test);
 			return (1);
+		}
 		printf("%s\n", directory);
 	}
 	else
