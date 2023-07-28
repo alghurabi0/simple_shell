@@ -75,10 +75,7 @@ int change_directory(char *args[])
 	{
 		directory = my_getenv("OLDPWD");
 		if (directory == NULL)
-		{
-			printf("%s\n", directory);
 			return (1);
-		}
 		printf("%s\n", directory);
 	}
 	else
