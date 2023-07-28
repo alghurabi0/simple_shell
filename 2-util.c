@@ -68,9 +68,6 @@ int special_cases(char *args[], bool *command_executed, int *status)
 			perror("access");
 	}
 	else
-	{
-		fprintf(stderr, "./hsh: 1: %s: not found\n", args[0]);
 		*status = 127;
-	}
 	return(0);
 }
