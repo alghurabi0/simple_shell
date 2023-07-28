@@ -65,7 +65,7 @@ int special_cases(char *args[], bool *command_executed, int *status)
 		if (access(args[0], X_OK) == 0)
 			execute_full_command(args, command_executed, status);
 		else
-			perror("access");
+			fprintf(stderr, "./hsh: 1: %s: not found", args[0]);
 	}
 	else
 	{
