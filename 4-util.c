@@ -30,7 +30,7 @@ void check_exit(char *args[], int token_count, char *line, FILE *input)
 		exit_status = my_atoi(args[1]);
 		if (exit_status == -98)
 		{
-			fprintf(stderr, "./hsh: 1: exit: Illegal number: -98");
+			fprintf(stderr, "./hsh: 1: exit: Illegal number: -98\n");
 			exit(2);
 		}
 		cleanup(line, input);
