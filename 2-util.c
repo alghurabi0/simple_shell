@@ -20,15 +20,7 @@ char *my_getenv(const char *name)
 	}
 	return (NULL);
 }
-/**
- * helper2 - helper function
- * @cd_result: change directory function return flag
- */
-void helper2(int cd_result)
-{
-	if (cd_result != 0)
-		fprintf(stderr, "Invalid usage of cd command\n");
-}
+
 /**
  * helper3 - helper function
  * @command_executed: check if command is executed

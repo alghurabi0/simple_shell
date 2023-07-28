@@ -40,10 +40,7 @@ int cd_home()
 	const char *home = my_getenv("HOME");
 
 	if (home == NULL)
-	{
-		fprintf(stderr, "cd: HOME not set\n");
 		return (1);
-	}
 	return (chdir_and_update_env(home));
 }
 /**

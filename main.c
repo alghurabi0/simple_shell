@@ -9,7 +9,7 @@ int main(int argc, char **argv)
 {
 	size_t size = 0;
 	ssize_t chars_read;
-	int token_count = 0, status, cd_result, builtin, last = 0;
+	int token_count = 0, status, builtin, last = 0;
 	char *line = NULL, *args[MAX_ARGS];
 	bool command_executed = false, sh = false, file_mode = false;
 	FILE *input = NULL;
@@ -38,8 +38,7 @@ int main(int argc, char **argv)
 			check_exit(args, token_count);
 		else if (my_strcmp(args[0], "cd") == 0)
 		{
-			cd_result = change_directory(args);
-			helper2(cd_result);
+			change_directory(args);
 			continue;
 		}
 		else
