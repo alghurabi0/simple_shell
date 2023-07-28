@@ -37,7 +37,7 @@ char *my_strdup(const char *s);
 int my_atoi(const char *str);
 char *my_getenv(const char *name);
 bool empty_or_not(const char *line);
-void check_exit(char *args[], int token_count);
+void check_exit(char *args[], int token_count, char *line, FILE *input);
 int cd_home();
 int chdir_and_update_env(const char *directory);
 #endif

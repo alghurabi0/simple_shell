@@ -35,7 +35,7 @@ int main(int argc, char **argv)
 		if (builtin)
 			continue;
 		else if(my_strncmp(args[0], "exit", 4) == 0)
-			check_exit(args, token_count);
+			check_exit(args, token_count, line, input);
 		else if (my_strcmp(args[0], "cd") == 0)
 		{
 			change_directory(args);
