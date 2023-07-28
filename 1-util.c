@@ -118,17 +118,7 @@ int execute_builtin_command(char *args[], int token_count)
 	int fd = STDERR_FILENO;
 	const char *message = "Invalid usage of setenv command\n";
 
-	if (my_strncmp(args[0], "exit", 4) == 0)
-	{
-		if (token_count > 1)
-		{
-			fprintf(stderr, "./hsh: 1: exit: Illegal number: -98\n");
-			exit(2);
-		}
-		else
-			exit(0);
-	}
-	else if (my_strcmp(args[0], "setenv") == 0)
+	if (my_strcmp(args[0], "setenv") == 0)
 	{
 		if (token_count != 3)
 			write(fd, message, my_strlen(message));

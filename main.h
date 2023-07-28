@@ -38,4 +38,5 @@ char *my_strdup(const char *s);
 int my_atoi(const char *str);
 char *my_getenv(const char *name);
 bool empty_or_not(const char *line);
+void check_exit(char *args[], int token_count);
 #endif

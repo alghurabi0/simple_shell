@@ -34,6 +34,8 @@ int main(int argc, char **argv)
 		builtin = execute_builtin_command(args, token_count);
 		if (builtin)
 			continue;
+		else if(my_strncmp(args[0], "exit", 4) == 0)
+			check_exit(args, token_count);
 		else if (my_strcmp(args[0], "cd") == 0)
 		{
 			cd_result = change_directory(args);
