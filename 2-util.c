@@ -32,6 +32,7 @@ void helper4(bool *command_executed, char *args[], int *last, int *status)
 {
 	if (*command_executed == false)
 		fprintf(stderr, "./hsh: %d: %s: not found\n", 1, args[0]);
+	*command_executed = false;
 	*last = *status;
 }
 /**

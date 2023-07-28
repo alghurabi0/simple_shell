@@ -58,7 +58,6 @@ int path(char *args[], bool *command_executed, int *status)
 	char *path, *path_copy, *token_path, full_path[MAX_PATH_LENGTH];
 	struct stat fileStat;
 
-	*command_executed = false;
 	path = my_getenv("PATH");
 	if (path == NULL || *path == '\0')
 		return (special_cases(args, command_executed, status));
