@@ -25,6 +25,8 @@ int main(int argc, char **argv)
 			if (sh || line[0] == '#')
 				continue;
 		}
+		if (chars_read <= 1 || empty_or_not(line))
+			continue;
 		if (line[0] == '\n' || chars_read == '0' || chars_read == (ssize_t)EOF)
 			break;
 		tokenize(line, args, &token_count, MAX_ARGS);
@@ -45,4 +47,14 @@ int main(int argc, char **argv)
 	}
 	cleanup(line, input);
 	return (0);
+}
+bool empty_or_not(const char *line)
+{
+	while (*line)
+	{
+		if (!isspace(*line))
+			return (false);
+		line++;
+	}
+	return (true);
 }

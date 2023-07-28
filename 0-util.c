@@ -35,7 +35,10 @@ void mode(int argc, char *argv[], bool *sh, bool *file_mode, FILE **input)
 void tokenize(char *line, char *args[], int *token_count, int max_args)
 {
 	char *token;
+	int i;
 
+	for (i = 0; i < MAX_ARGS; i++)
+		args[i] = NULL;
 	token = strtok(line, " \t\n");
 	*token_count = 0;
 	while (token != NULL && *token_count < max_args - 1)

@@ -37,5 +37,5 @@ void *my_memcpy(void *dest, const void *src, size_t n);
 char *my_strdup(const char *s);
 int my_atoi(const char *str);
 char *my_getenv(const char *name);
-
+bool empty_or_not(const char *line);
 #endif
