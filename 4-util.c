@@ -31,7 +31,7 @@ void check_exit(char *args[], int token_count, char *line, FILE *input)
 		if (exit_status == -98)
 		{
 			fprintf(stderr, "./hsh: 1: exit: Illegal number: -98");
-			exit(2)
+			exit(2);
 		}
 		cleanup(line, input);
 		exit(exit_status);
