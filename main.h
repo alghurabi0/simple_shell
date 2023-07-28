@@ -39,5 +39,5 @@ bool empty_or_not(const char *line);
 void check_exit(char *args[], int token_count, char *line, FILE *input);
 int cd_home(void);
 int chdir_and_update_env(const char *directory);
-void special_cases(char *args[], bool *command_executed, int *status);
+int special_cases(char *args[], bool *command_executed, int *status);
 #endif

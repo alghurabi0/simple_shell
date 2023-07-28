@@ -56,7 +56,7 @@ int my_strcmp(const char *s1, const char *s2)
  * @command_executed: command
  * @status: status
  */
-void special_cases(char *args[], bool *command_executed, int *status)
+int special_cases(char *args[], bool *command_executed, int *status)
 {
 	struct stat fileStat1;
 
