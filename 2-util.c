@@ -69,4 +69,5 @@ int special_cases(char *args[], bool *command_executed, int *status)
 	}
 	else
 		perror("stat");
+	return(0);
 }

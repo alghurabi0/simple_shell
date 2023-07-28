@@ -79,6 +79,7 @@ int path(char *args[], bool *command_executed, int *status)
 		token_path = strtok(NULL, ":");
 	}
 	free(path_copy);
+	return (0);
 }
 /**
  * cleanup - handles freeing memory
