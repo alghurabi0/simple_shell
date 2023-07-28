@@ -21,7 +21,7 @@ bool empty_or_not(const char *line)
  * @line: line
  * @input: input
  */
-void check_exit(char *args[], int token_count, char *line, FILE *input)
+void check_exit(char *args[], int token_count, char *line, FILE *input, bool *a)
 {
 	int exit_st;
 
@@ -39,6 +39,8 @@ void check_exit(char *args[], int token_count, char *line, FILE *input)
 	else
 	{
 		cleanup(line, input);
+		if (*a == false)
+			exit(2);
 		exit(0);
 	}
 }
