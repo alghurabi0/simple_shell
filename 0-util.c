@@ -35,10 +35,7 @@ void mode(int argc, char *argv[], bool *sh, bool *file_mode, FILE **input)
 void tokenize(char *line, char *args[], int *token_count, int max_args)
 {
 	char *token;
-	int i;
 
-	for (i = 0; i < MAX_ARGS; i++)
-		args[i] = NULL;
 	token = strtok(line, " \t\n");
 	*token_count = 0;
 	while (token != NULL && *token_count < max_args - 1)
@@ -54,13 +51,16 @@ void tokenize(char *line, char *args[], int *token_count, int max_args)
  * @args: args
  * @command_executed: checks if the command passed has been executed
  * @status: status of operation
+ * Return: int
  */
-void path(char *args[], bool *command_executed, int *status)
+int path(char *args[], bool *command_executed, int *status)
 {
 	char *path, *path_copy, *token_path, full_path[MAX_PATH_LENGTH];
 	struct stat fileStat;
 
 	path = my_getenv("PATH");
+	if (path == NULL)
+		return (special_cases(args, command_executed, status));
 	path_copy = my_strdup(path);
 	token_path = strtok(path_copy, ":");
 

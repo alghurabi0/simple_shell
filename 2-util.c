@@ -50,3 +50,23 @@ int my_strcmp(const char *s1, const char *s2)
 	}
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
+/**
+ * special_cases - handle special cases
+ * @args: args
+ * @command_executed: command
+ * @status: status
+ */
+void special_cases(char *args[], bool *command_executed, int *status)
+{
+	struct stat fileStat1;
+
+	if (stat(args[0], &fileStat1) == 0)
+	{
+		if (access(args[0], X_OK) == 0)
+			execute_full_command(args, command_executed, status);
+		else
+			perror("access");
+	}
+	else
+		perror("stat");
+}

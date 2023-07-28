@@ -24,7 +24,7 @@ int change_directory(char *args[]);
 int execute_builtin_command(char *args[], int token_count);
 void mode(int argc, char *argv[], bool *sh, bool *file_mode, FILE **input);
 void tokenize(char *line, char *args[], int *token_count, int max_args);
-void path(char *args[], bool *command_executed, int *status);
+int path(char *args[], bool *command_executed, int *status);
 void cleanup(char *line, FILE *input);
 void handle_variable(char *args[], int *token_count, int last);
 void helper4(bool *command_executed, char *args[], int *last, int *status);
@@ -39,4 +39,5 @@ bool empty_or_not(const char *line);
 void check_exit(char *args[], int token_count, char *line, FILE *input);
 int cd_home(void);
 int chdir_and_update_env(const char *directory);
+void special_cases(char *args[], bool *command_executed, int *status);
 #endif
