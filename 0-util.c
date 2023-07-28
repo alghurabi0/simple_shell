@@ -59,7 +59,7 @@ int path(char *args[], bool *command_executed, int *status)
 	struct stat fileStat;
 
 	path = my_getenv("PATH");
-	if (path == NULL || path == '\0')
+	if (path == NULL || path == "")
 		return (special_cases(args, command_executed, status));
 	path_copy = my_strdup(path);
 	token_path = strtok(path_copy, ":");
