@@ -115,6 +115,7 @@ int change_directory(char *args[])
  */
 int execute_builtin_command(char *args[], int token_count)
 {
+	int exit_status;
 	int fd = STDERR_FILENO;
 	const char *message = "Invalid usage of setenv command\n";
 
@@ -122,8 +123,8 @@ int execute_builtin_command(char *args[], int token_count)
 	{
 		if (token_count > 1)
 		{
-			fprintf(stderr, "./hsh: 1: exit: Illegal number: -98\n");
-			exit(2);
+			exit_status = my_atoi(args[1]);
+			exit(exit_status);
 		}
 		else
 			exit(0);
