@@ -46,5 +46,5 @@ int main(int argc, char **argv)
 		helper4(&command_executed, args, &last, &status);
 	}
 	cleanup(line, input);
-	return (0);
+	return (last);
 }
