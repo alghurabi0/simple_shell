@@ -26,7 +26,7 @@ int main(int argc, char **argv)
 				continue;
 		}
 		if (chars_read <= 1 || empty_or_not(line))
-			continue;
+			break;
 		if (line[0] == '\n' || chars_read == '0' || chars_read == (ssize_t)EOF)
 			break;
 		tokenize(line, args, &token_count, MAX_ARGS);
